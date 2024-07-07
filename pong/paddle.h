@@ -17,11 +17,10 @@ public:
         m_rectangle({xPos, yPos, width, height}),
         m_colour(RAYWHITE){};
     void loop();
+    Rectangle getRectangle();
 
 private:
     void handleMovement();
-    void handleCollision();
-    void publishCollision();
     const float width;
     const float height;
     const float yPos;

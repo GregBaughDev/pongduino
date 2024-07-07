@@ -20,12 +20,7 @@ void Paddle::handleMovement()
     }
 }
 
-void Paddle::handleCollision()
+Rectangle Paddle::getRectangle()
 {
-    // next time - handle the collision with the ball!
-}
-
-void Paddle::publishCollision()
-{
-    // next time - publish the hit type to the ball
+    return m_rectangle;
 }

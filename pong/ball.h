@@ -2,22 +2,23 @@
 #define BALL_H
 #include "raylib.h"
 
-enum collisionPos { TOP, MID, BOTTOM };
+enum Direction { LEFT, RIGHT, INITIAL };
 
 class Ball
 {
 public:
-    Ball(int x, int y) : radius(8.0), colour(RAYWHITE), x(x), y(y), speed(3){};
+    Ball(float x, float y) : radius(8.0), colour(RAYWHITE), circle({x, y}), speed(3), currDirr(INITIAL){};
     void handleBall();
-private:
+    Vector2 getCircle();
+    float getRadius();
+    void receiveCollision(int colPos);
     const float radius;
+
+private:
     const Color colour;
-    int x;
-    int y;
+    Vector2 circle;
     int speed;
-    void xTop();
-    void xMid();
-    void xBot();
+    Direction currDirr;
 };
 
 #endif

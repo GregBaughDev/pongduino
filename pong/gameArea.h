@@ -21,6 +21,7 @@ public:
 
 private:
     void handlePaddles();
+    void checkAndPublishCollision();
     Ball ball;
     Paddle l_paddle;
     Paddle r_paddle;
