@@ -7,7 +7,6 @@ void Pong::setup()
     InitWindow(gameArea.width, gameArea.height, "Pong");
     SetWindowState(FLAG_VSYNC_HINT);
     SetTargetFPS(60);
-    gameArea.setup();
 }
 
 void Pong::loop()

@@ -8,20 +8,18 @@ class GameArea
 {
 public:
     GameArea()
-        : width(800),
-          height(600),
-          ball(Ball(width / 2, height / 2)),
-          l_paddle(Paddle(Keyboard(KEY_E, KEY_X), 20, ball)),
-          r_paddle(Paddle(Keyboard(KEY_UP, KEY_DOWN), width - 40, ball)){};
+        : ball(Ball(width / 2, height / 2)),
+          l_paddle(Paddle(Keyboard(KEY_E, KEY_X), 40)),
+          r_paddle(Paddle(Keyboard(KEY_UP, KEY_DOWN), width - 60)){};
     // Will have score in constructor
-    void setup();
     void loop();
-    const int width;
-    const int height;
+    static const int height = 600;
+    static const int width = 800;
 
 private:
     void handlePaddles();
     void checkAndPublishCollision();
+    void checkIsOut();
     Ball ball;
     Paddle l_paddle;
     Paddle r_paddle;

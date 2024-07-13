@@ -6,12 +6,7 @@ void GameArea::loop()
     handlePaddles();
     ball.handleBall();
     checkAndPublishCollision();
-}
-
-void GameArea::setup()
-{
-    // not implemented
-    std::cout << "Set up tasks\n";
+    checkIsOut();
 }
 
 void GameArea::handlePaddles()
@@ -22,13 +17,22 @@ void GameArea::handlePaddles()
 
 void GameArea::checkAndPublishCollision()
 {
-    if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius(), l_paddle.getRectangle()))
+    if (
+        CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, l_paddle.getRectangle()))
     {
-        ball.receiveCollision(ball.getCircle().y - l_paddle.getRectangle().y);
+        ball.receiveHit(ball.getCircle().y - l_paddle.getRectangle().y);
     }
 
-    if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius(), r_paddle.getRectangle()))
+    if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, r_paddle.getRectangle()))
     {
-        ball.receiveCollision(ball.getCircle().y - r_paddle.getRectangle().y);
+        ball.receiveHit(ball.getCircle().y - r_paddle.getRectangle().y);
+    }
+}
+
+void GameArea::checkIsOut()
+{
+    if (ball.getCircle().x <= 0 || ball.getCircle().x >= width)
+    {
+        ball.setIsStop();
     }
 }

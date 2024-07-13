@@ -1,13 +1,13 @@
 #include "ball.h"
+#include "gameArea.h"
 #include <iostream>
-// to do - move public methods to top
+
 void Ball::handleBall()
 {
-    if (currDirr == INITIAL)
+    if (!isStop)
     {
-        circle.x -= speed;
+        movementManager();
     }
-
     DrawCircle(circle.x, circle.y, radius, colour);
 }
 
@@ -21,32 +21,94 @@ float Ball::getRadius()
     return radius;
 }
 
-void Ball::receiveCollision(int colPos)
+void Ball::receiveHit(int colPos)
 {
-    currDirr = RIGHT;
-    if (colPos >= 0 && colPos < 20)
+    reverseX();
+    reverseY();
+
+    if (colPos >= 0 && colPos < 10)
     {
-        // how do we work out the direction?
-        circle.x += speed;
+        speedY += 6;
     }
 
-    if (colPos >= 20 && colPos < 40)
+    if (colPos >= 10 && colPos < 20)
     {
-        circle.x += speed;
+        speedY += 5;
     }
 
-    if (colPos >= 40 && colPos < 60)
+    if (colPos >= 30 && colPos < 40)
     {
-        circle.x += speed;
+        speedY += 4;
     }
 
-    if (colPos >= 60 && colPos < 80)
+    if (colPos >= 40 && colPos < 50)
     {
-        circle.x += speed;
+        speedY += 3;
     }
 
-    if (colPos >= 80)
+    if (colPos >= 50 && colPos < 60)
     {
-        circle.x += speed;
+        speedY -= 1;
     }
+
+    if (colPos >= 60 && colPos < 70)
+    {
+        speedY += 3;
+    }
+
+    if (colPos >= 70 && colPos < 80)
+    {
+        speedY -= 4;
+    }
+
+    if (colPos >= 80 && colPos < 90)
+    {
+        speedY -= 5;
+    }
+
+    if (colPos >= 90)
+    {
+        speedY -= 6;
+    }
+}
+
+void Ball::setIsStop()
+{
+    isStop = true;
+}
+
+void Ball::movementManager()
+{
+    if (circle.y <= 0)
+    {
+        reverseY();
+    }
+
+    if (circle.y >= GameArea::height)
+    {
+        reverseY();
+    }
+
+    if (circle.x <= 0)
+    {
+        reverseX();
+    }
+
+    if (circle.x >= GameArea::width)
+    {
+        reverseX();
+    }
+
+    circle.x -= speedX;
+    circle.y -= speedY;
+}
+
+void Ball::reverseX()
+{
+    speedX = -speedX;
+}
+
+void Ball::reverseY()
+{
+    speedY = -speedY;
 }
