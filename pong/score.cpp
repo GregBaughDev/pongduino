@@ -20,4 +20,3 @@ void Score::incrementPlayer(int player)
 }
 
 // conver the scores into char* using to_string and to_chars_result
-// test credentials
