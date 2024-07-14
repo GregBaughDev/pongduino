@@ -1,11 +1,17 @@
 #include "ball.h"
 #include "gameArea.h"
-#include <iostream>
+#include <unistd.h>
 
 void Ball::handleBall()
 {
-    if (!isStop)
+    if (isStop)
     {
+        circle.x = GameArea::width / 2.0;
+        circle.y = GameArea::height / 2.0;
+        speedY = 1;
+        sleep(1);
+        isStop = false;
+    } else {
         movementManager();
     }
     DrawCircle(circle.x, circle.y, radius, colour);

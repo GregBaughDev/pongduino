@@ -1,12 +1,15 @@
 #include "gameArea.h"
 #include <iostream>
+#include <raylib.h>
 
 void GameArea::loop()
 {
+    DrawLine(GameArea::width / 2, 0,  GameArea::width / 2.0, GameArea::height, RAYWHITE);    
     handlePaddles();
     ball.handleBall();
     checkAndPublishCollision();
     checkIsOut();
+    score.displayScore();
 }
 
 void GameArea::handlePaddles()
