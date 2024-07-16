@@ -4,7 +4,7 @@
 
 void Score::displayScore()
 {
-    DrawText(std::to_string(player1Score), 10, 100, 30, RAYWHITE);
+   // DrawText(std::to_string(player1Score), 10, 100, 30, RAYWHITE);
 }
 
 void Score::incrementPlayer(int player)
