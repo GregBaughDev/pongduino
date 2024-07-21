@@ -27,22 +27,22 @@ void loop() {
   // in through the C++ controller code
   
   if (p1DownState == HIGH) {
-    Serial.println("P1 DOWN PRESSED");
-    Serial.write(1);
+    //Serial.println("P1 DOWN PRESSED");
+    Serial.println(1);
   }
 
   if (p1UpState == HIGH) {
-    Serial.println("P1 UP PRESSED");
-    Serial.write(2);
+    //Serial.println("P1 UP PRESSED");
+    Serial.println(2);
   }
 
   if (p2DownState == HIGH) {
-    Serial.println("P2 DOWN PRESSED");
-    Serial.write(3);
+    //Serial.println("P2 DOWN PRESSED");
+    Serial.println(3);
   }
 
   if (p2UpState == HIGH) {
-    Serial.println("P2 UP PRESSED");
-    Serial.write(4);
+    //Serial.println("P2 UP PRESSED");
+    Serial.println(4);
   }
 }
