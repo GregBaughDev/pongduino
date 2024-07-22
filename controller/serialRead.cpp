@@ -9,10 +9,7 @@
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 // http://www.unixwiz.net/techtips/termios-vmin-vtime.html
 
-// current state - We should use a ring buffer. Atm we are keeping the received
-// bytes but we don't want that as it will affect the paddle movement. We want
-// to read in the data and set the value to 0 once we've read it?
-
+// current state: we're now reading the input in real time. Much better!
 int main()
 {
     // linux
@@ -73,21 +70,13 @@ int main()
 
     std::cout << "something has happened: " << serial_port << "\n";
 
-    char readBuf[256];
+    char readBuf[1];
 
     while (true)
     {
         read(serial_port, &readBuf, sizeof(readBuf));
-        int i;
-        for (i = 0; i < 256; i++)
-        {
-             if (readBuf[i] == '1' || readBuf[i] == '2' || readBuf[i] == '3' || readBuf[i] == '4')
-            {
-                std::cout << readBuf[i] << " ";
-                readBuf[i] = 0;
-            }
-        }
-        usleep(1000);
+        std::cout << readBuf[0];
+        usleep(900);
     }
 
     return 0;
