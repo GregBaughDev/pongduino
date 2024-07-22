@@ -4,15 +4,21 @@
 #include <errno.h>
 #include <termios.h>
 #include <unistd.h>
+#include <string.h>
 
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 // http://www.unixwiz.net/techtips/termios-vmin-vtime.html
 
-// current state - we're getting the information through but the loop needs to be sorted
-// what should happen? Should we empty the buffer each time or use a ring buffer or something else?
+// current state - We should use a ring buffer. Atm we are keeping the received
+// bytes but we don't want that as it will affect the paddle movement. We want
+// to read in the data and set the value to 0 once we've read it?
+
 int main()
 {
-    int serial_port = open("/dev/cu.usbmodem14101", O_RDONLY | O_NONBLOCK);
+    // linux
+    int serial_port = open("/dev/ttyACM0", O_RDONLY | O_NONBLOCK);
+    // mac
+    // int serial_port = open("/dev/cu.usbmodem14101", O_RDONLY | O_NONBLOCK);
     struct termios tty;
 
     if (serial_port < 0)
@@ -75,11 +81,13 @@ int main()
         int i;
         for (i = 0; i < 256; i++)
         {
-            if (readBuf[i] == '1' || readBuf[i] == '2' || readBuf[i] == '3' || readBuf[i] == '4')
+             if (readBuf[i] == '1' || readBuf[i] == '2' || readBuf[i] == '3' || readBuf[i] == '4')
             {
                 std::cout << readBuf[i] << " ";
+                readBuf[i] = 0;
             }
         }
+        usleep(1000);
     }
 
     return 0;
