@@ -9,7 +9,9 @@
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 // http://www.unixwiz.net/techtips/termios-vmin-vtime.html
 
-// current state: we're now reading the input in real time. Much better!
+// current state: This should be a class which exposes a 'stream'
+// method. The reader consumes this method and returns whether a key 
+// is pressed that matches the current stream. 
 int main()
 {
     // linux
@@ -56,7 +58,7 @@ int main()
     // VMIN, VTIME
     // may need to experiment with these if they block the thread
     tty.c_cc[VTIME] = 1; // wait up to a second, returning as soon as any data is received
-    tty.c_cc[VMIN] = 255;
+    tty.c_cc[VMIN] = 1; // this was changed from 255 in case it breaks
 
     // baud rate
     cfsetispeed(&tty, B9600); // set input baud rate to 9600

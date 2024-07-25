@@ -1,7 +1,6 @@
 #include "paddle.h"
 #include "gameArea.h"
 #include <raylib.h>
-#include <iostream>
 
 void Paddle::loop()
 {

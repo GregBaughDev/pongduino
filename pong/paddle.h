@@ -1,6 +1,6 @@
 #ifndef PADDLE_H
 #define PADDLE_H
-#include "keyboard.h"
+#include "../controller/keyboard.h"
 #include "ball.h"
 #include "raylib.h"
 
