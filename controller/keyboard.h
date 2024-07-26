@@ -8,14 +8,8 @@ public:
     Keyboard(const int upKey, const int downKey)
         : upKey(upKey),
           downKey(downKey){};
-    int getDownKey() override
-    {
-        return downKey;
-    }
-    int getUpKey() override
-    {
-        return upKey;
-    }
+    int getDownKey() override;
+    int getUpKey() override;
 
 private:
     const int upKey;

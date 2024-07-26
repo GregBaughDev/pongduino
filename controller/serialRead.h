@@ -9,13 +9,16 @@ class SerialRead
 {
 public:
     SerialRead(std::string port)
-        : serialPort(port){
-            setup();
-        };
+        : serialPort(port)
+    {
+        setup();
+    };
     void stream();
+
 private:
     void setup();
     std::string serialPort;
+    int portFd;
 };
 
 #endif

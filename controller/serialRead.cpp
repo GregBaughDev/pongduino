@@ -1,3 +1,4 @@
+#include "serialRead.h"
 #include <cstdlib>
 #include <fcntl.h>
 #include <iostream>
@@ -6,27 +7,23 @@
 #include <unistd.h>
 #include <string.h>
 
+// based on these articles
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 // http://www.unixwiz.net/techtips/termios-vmin-vtime.html
 
-// current state: This should be a class which exposes a 'stream'
-// method. The reader consumes this method and returns whether a key 
-// is pressed that matches the current stream. 
-int main()
+void SerialRead::setup()
 {
-    // linux
-    int serial_port = open("/dev/ttyACM0", O_RDONLY | O_NONBLOCK);
-    // mac
-    // int serial_port = open("/dev/cu.usbmodem14101", O_RDONLY | O_NONBLOCK);
+    portFd = open(serialPort.c_str(), O_RDONLY | O_NONBLOCK);
+
     struct termios tty;
 
-    if (serial_port < 0)
+    if (portFd < 0)
     {
         std::cout << "Error opening serial port -> " << strerror(errno) << "\n";
         exit(1);
     }
 
-    if (tcgetattr(serial_port, &tty) != 0)
+    if (tcgetattr(portFd, &tty) != 0)
     {
         std::cout << "Error from tcgetattr -> " << strerror(errno) << "\n";
         exit(1);
@@ -58,28 +55,27 @@ int main()
     // VMIN, VTIME
     // may need to experiment with these if they block the thread
     tty.c_cc[VTIME] = 1; // wait up to a second, returning as soon as any data is received
-    tty.c_cc[VMIN] = 1; // this was changed from 255 in case it breaks
+    tty.c_cc[VMIN] = 1;  // this was changed from 255 in case it breaks
 
     // baud rate
     cfsetispeed(&tty, B9600); // set input baud rate to 9600
 
     // save the tty settings
-    if (tcsetattr(serial_port, TCSANOW, &tty) != 0)
+    if (tcsetattr(portFd, TCSANOW, &tty) != 0)
     {
         std::cout << "Error from tcsetattr " << strerror(errno) << "\n";
         exit(1);
     }
+}
 
-    std::cout << "something has happened: " << serial_port << "\n";
-
+void SerialRead::stream()
+{
     char readBuf[1];
 
     while (true)
     {
-        read(serial_port, &readBuf, sizeof(readBuf));
+        read(portFd, &readBuf, sizeof(readBuf));
         std::cout << readBuf[0];
         usleep(900);
     }
-
-    return 0;
 }
