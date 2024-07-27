@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <iostream>
 #include <errno.h>
+#include <ostream>
 #include <termios.h>
 #include <unistd.h>
 #include <string.h>
@@ -68,14 +69,16 @@ void SerialRead::setup()
     }
 }
 
-void SerialRead::stream()
+void SerialRead::stream(char* valueStore)
 {
     char readBuf[1];
 
     while (true)
     {
         read(portFd, &readBuf, sizeof(readBuf));
-        std::cout << readBuf[0];
+        valueStore = &readBuf[0];
+        std::cout << "VALUE OF VALUESTORE IS " << valueStore << std::endl;
         usleep(900);
+        // this maybe should be std::this_thread::sleep_for();
     }
 }

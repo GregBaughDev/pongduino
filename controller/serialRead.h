@@ -13,7 +13,7 @@ public:
     {
         setup();
     };
-    void stream();
+    void stream(char* valueStore);
 
 private:
     void setup();
