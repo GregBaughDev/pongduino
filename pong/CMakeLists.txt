@@ -4,7 +4,18 @@ project(Pongduino)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
-add_executable(pong main.cpp pong.cpp gameArea.cpp paddle.cpp ball.cpp score.cpp ../controller/keyboard.cpp ../controller/serialRead.cpp)
+add_executable(
+    pong 
+    main.cpp 
+    pong.cpp 
+    gameArea.cpp 
+    paddle.cpp 
+    ball.cpp 
+    score.cpp 
+    ../controller/keyboard.cpp 
+    ../controller/serialRead.cpp
+    ../controller/arduino.cpp
+)
 find_path(RL_INCLUDE_DIR NAMES raylib.h PATHS /opt/homebrew/opt/raylib/include)
 include_directories(${RL_INCLUDE_DIR})
 find_library(RL_LIBRARY NAMES raylib PATHS /opt/homebrew/opt/raylib/lib)

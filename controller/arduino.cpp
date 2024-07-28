@@ -1,11 +1,14 @@
 #include "arduino.h"
 
-int Arduino::getDownKey()
+bool Arduino::isDownKeyDown()
 {
-    return downKey;
+    // current state - issue is here!
+    // return downKey == *serialValue;
+    return false;
 }
 
-int Arduino::getUpKey()
+bool Arduino::isUpKeyDown()
 {
-    return upKey;
+    // return upKey == *serialValue;
+    return false;
 }

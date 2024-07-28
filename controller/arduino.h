@@ -5,15 +5,16 @@
 class Arduino : public Controller
 {
 public:
-    Arduino(const int upKey, const int downKey)
+    Arduino(const char upKey, const char downKey, char *serialValuePtr)
         : upKey(upKey),
-          downKey(downKey){};
-    int getDownKey() override;
-    int getUpKey() override;
+          downKey(downKey), serialValue(serialValuePtr) {};
+    bool isDownKeyDown() override;
+    bool isUpKeyDown() override;
 
 private:
-    const int upKey;
-    const int downKey;
+    const char upKey;
+    const char downKey;
+    char *serialValue;
 };
 
 #endif

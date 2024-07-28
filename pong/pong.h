@@ -5,9 +5,10 @@
 class Pong
 {
 public:
-    Pong() : gameArea(){};
+    Pong() : gameArea() {};
     void setup();
     void loop();
+    char *getSerialPtr();
 
 private:
     GameArea gameArea;

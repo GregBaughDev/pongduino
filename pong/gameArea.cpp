@@ -4,7 +4,7 @@
 
 void GameArea::loop()
 {
-    DrawLine(GameArea::width / 2, 0,  GameArea::width / 2.0, GameArea::height, RAYWHITE);    
+    DrawLine(GameArea::width / 2, 0, GameArea::width / 2.0, GameArea::height, RAYWHITE);
     handlePaddles();
     ball.handleBall();
     checkAndPublishCollision();
@@ -38,4 +38,9 @@ void GameArea::checkIsOut()
     {
         ball.setIsStop();
     }
+}
+
+char *GameArea::getSerialValuePtr()
+{
+    return serialValue;
 }

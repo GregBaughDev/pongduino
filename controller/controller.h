@@ -4,8 +4,8 @@
 class Controller
 {
 public:
-    virtual int getUpKey() = 0;
-    virtual int getDownKey() = 0;
+    virtual bool isUpKeyDown() = 0;
+    virtual bool isDownKeyDown() = 0;
 };
 
 #endif

@@ -7,9 +7,9 @@ class Keyboard : public Controller
 public:
     Keyboard(const int upKey, const int downKey)
         : upKey(upKey),
-          downKey(downKey){};
-    int getDownKey() override;
-    int getUpKey() override;
+          downKey(downKey) {};
+    bool isDownKeyDown() override;
+    bool isUpKeyDown() override;
 
 private:
     const int upKey;

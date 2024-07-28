@@ -69,7 +69,7 @@ void SerialRead::setup()
     }
 }
 
-void SerialRead::stream(char* valueStore)
+void SerialRead::stream(char *valueStore)
 {
     char readBuf[1];
 
@@ -77,7 +77,7 @@ void SerialRead::stream(char* valueStore)
     {
         read(portFd, &readBuf, sizeof(readBuf));
         valueStore = &readBuf[0];
-        std::cout << "VALUE OF VALUESTORE IS " << valueStore << std::endl;
+        std::cout << valueStore << '\n';
         usleep(900);
         // this maybe should be std::this_thread::sleep_for();
     }

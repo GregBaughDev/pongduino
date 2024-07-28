@@ -1,19 +1,20 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 #include "../controller/keyboard.h"
+#include "../controller/arduino.h"
 #include "ball.h"
 #include "raylib.h"
 
 class Paddle
 {
 public:
-    Paddle(Keyboard keyboard, float xPos)
+    Paddle(Arduino keyboard, float xPos)
         : width(20),
           height(100),
           paddleSpeed(15),
           keyboard(keyboard),
           rectangle({xPos, 20, width, height}),
-          colour(RAYWHITE){};
+          colour(RAYWHITE) {};
     void loop();
     Rectangle getRectangle();
 
@@ -24,7 +25,7 @@ private:
     int paddleSpeed;
     // let's just do this as keyboard for now
     // and come back to setting it as a interface
-    Keyboard keyboard;
+    Arduino keyboard;
     Rectangle rectangle;
     Color colour;
 };

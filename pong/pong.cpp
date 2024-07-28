@@ -23,3 +23,8 @@ void Pong::loop()
 
     CloseWindow();
 }
+
+char *Pong::getSerialPtr()
+{
+    return gameArea.getSerialValuePtr();
+}

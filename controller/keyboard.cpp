@@ -1,11 +1,12 @@
 #include "keyboard.h"
+#include <raylib.h>
 
-int Keyboard::getDownKey()
+bool Keyboard::isDownKeyDown()
 {
-    return downKey;
+    return IsKeyDown(downKey);
 }
 
-int Keyboard::getUpKey()
+bool Keyboard::isUpKeyDown()
 {
-    return upKey;
+    return IsKeyDown(upKey);
 }

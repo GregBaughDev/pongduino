@@ -8,14 +8,16 @@
 
 int main()
 {
-    char* store;
-    SerialRead serialRead("/dev/ttyACM0");
-    std::thread input(&SerialRead::stream, serialRead, store);
+    // SerialRead serialRead("/dev/ttyACM0");
+    SerialRead serialRead("/dev/cu.usbmodem14201");
 
     Pong pong;
     pong.setup();
+
+    std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
+
     pong.loop();
- 
+
     input.join();
 
     return 0;
