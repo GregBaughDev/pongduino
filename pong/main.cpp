@@ -2,14 +2,10 @@
 #include "../controller/serialRead.h"
 #include <thread>
 
-// current state: so we now have a new thread for reading the serial data
-// this is working while the game loop runs!
-// Next steps are to write the code that communicates to the game loop.
-
 int main()
 {
     // SerialRead serialRead("/dev/ttyACM0");
-    SerialRead serialRead("/dev/cu.usbmodem14201");
+    SerialRead serialRead("/dev/cu.usbmodem14101");
 
     Pong pong;
     pong.setup();

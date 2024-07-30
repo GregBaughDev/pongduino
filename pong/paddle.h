@@ -1,18 +1,17 @@
 #ifndef PADDLE_H
 #define PADDLE_H
-#include "../controller/keyboard.h"
-#include "../controller/arduino.h"
+#include "../controller/controller.h"
 #include "ball.h"
 #include "raylib.h"
 
 class Paddle
 {
 public:
-    Paddle(Arduino keyboard, float xPos)
+    Paddle(Controller *inputType, float xPos)
         : width(20),
           height(100),
-          paddleSpeed(15),
-          keyboard(keyboard),
+          paddleSpeed(30), // 15 keyboard
+          controller(inputType),
           rectangle({xPos, 20, width, height}),
           colour(RAYWHITE) {};
     void loop();
@@ -23,9 +22,7 @@ private:
     const float width;
     const float height;
     int paddleSpeed;
-    // let's just do this as keyboard for now
-    // and come back to setting it as a interface
-    Arduino keyboard;
+    Controller *controller;
     Rectangle rectangle;
     Color colour;
 };

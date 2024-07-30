@@ -2,13 +2,10 @@
 
 bool Arduino::isDownKeyDown()
 {
-    // current state - issue is here!
-    // return downKey == *serialValue;
-    return false;
+    return downKey == *serialValue;
 }
 
 bool Arduino::isUpKeyDown()
 {
-    // return upKey == *serialValue;
-    return false;
+    return upKey == *serialValue;
 }

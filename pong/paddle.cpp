@@ -10,11 +10,11 @@ void Paddle::loop()
 
 void Paddle::handleMovement()
 {
-    if (keyboard.isUpKeyDown() && rectangle.y >= 0)
+    if (controller->isUpKeyDown() && rectangle.y >= 0)
     {
         rectangle.y -= paddleSpeed;
     }
-    else if (keyboard.isDownKeyDown() && (rectangle.y + height <= GameArea::height))
+    else if (controller->isDownKeyDown() && (rectangle.y + height <= GameArea::height))
     {
         rectangle.y += paddleSpeed;
     }

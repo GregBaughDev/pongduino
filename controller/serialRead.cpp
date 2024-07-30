@@ -7,10 +7,14 @@
 #include <termios.h>
 #include <unistd.h>
 #include <string.h>
+#include <thread>
 
 // based on these articles
 // https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
 // http://www.unixwiz.net/techtips/termios-vmin-vtime.html
+
+// to read
+// https://tldp.org/HOWTO/Serial-Programming-HOWTO/
 
 void SerialRead::setup()
 {
@@ -76,9 +80,7 @@ void SerialRead::stream(char *valueStore)
     while (true)
     {
         read(portFd, &readBuf, sizeof(readBuf));
-        valueStore = &readBuf[0];
-        std::cout << valueStore << '\n';
-        usleep(900);
-        // this maybe should be std::this_thread::sleep_for();
+        *valueStore = readBuf[0];
+        std::this_thread::sleep_for(std::chrono::microseconds(10));
     }
 }
