@@ -58,9 +58,9 @@ void SerialRead::setup()
     tty.c_oflag &= ~ONLCR; // disable conversion of newline to carriage return
 
     // VMIN, VTIME
-    // may need to experiment with these if they block the thread
-    tty.c_cc[VTIME] = 1; // wait up to a second, returning as soon as any data is received
-    tty.c_cc[VMIN] = 1;  // this was changed from 255 in case it breaks
+    // don't wait for a certain time or minimum byte amount
+    tty.c_cc[VTIME] = 0;
+    tty.c_cc[VMIN] = 0;
 
     // baud rate
     cfsetispeed(&tty, B9600); // set input baud rate to 9600

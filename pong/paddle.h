@@ -10,7 +10,7 @@ public:
     Paddle(Controller *inputType, float xPos)
         : width(20),
           height(100),
-          paddleSpeed(30), // 15 keyboard
+          paddleSpeed(25), // 15 keyboard
           controller(inputType),
           rectangle({xPos, 20, width, height}),
           colour(RAYWHITE) {};
