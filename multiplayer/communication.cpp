@@ -1,5 +1,4 @@
 #include "communication.h"
-// #include "../pong/pong.h"
 #include <netdb.h>
 #include <sys/socket.h>
 #include <iostream>
@@ -69,6 +68,7 @@ void Communication::startServer()
         }
 
         dataUnmarshall();
+        // to do - remove once tested
         std::cout << "ballPosX is " << rcvComm->ballPosX << "\n";
         std::cout << "ballPosY is " << rcvComm->ballPosY << "\n";
         std::cout << "paddlePosX is " << rcvComm->paddlePosX << "\n";

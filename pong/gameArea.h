@@ -4,6 +4,7 @@
 #include "ball.h"
 #include "score.h"
 #include "../controller/arduino.h"
+#include "../controller/keyboard.h"
 #include "raylib.h"
 #include <cstdlib>
 
@@ -13,10 +14,11 @@ public:
     GameArea()
         : ball(Ball(width / 2.0, height / 2.0)),
           serialValue((char *)malloc(1)),
-          //   l_paddle(Paddle(Keyboard(KEY_E, KEY_X), 40)),
-          //   r_paddle(Paddle(Keyboard(KEY_UP, KEY_DOWN), width - 60)),
-          l_paddle(Paddle(new Arduino('4', '3', serialValue), 40)),
-          r_paddle(Paddle(new Arduino('2', '1', serialValue), width - 60)),
+          // to do - move the below to Pong
+          l_paddle(Paddle(new Keyboard(KEY_E, KEY_X), 40)),
+          r_paddle(Paddle(new Keyboard(KEY_UP, KEY_DOWN), width - 60)),
+          //   l_paddle(Paddle(new Arduino('4', '3', serialValue), 40)),
+          //   r_paddle(Paddle(new Arduino('2', '1', serialValue), width - 60)),
           score(Score()) {};
     void loop();
     static const int height = 600;

@@ -5,13 +5,16 @@
 int main()
 {
     // SerialRead serialRead("/dev/ttyACM0");
-    SerialRead serialRead("/dev/cu.usbmodem142201");
+    // SerialRead serialRead("/dev/cu.usbmodem142201");
 
-    Pong pong;
+    // instance one ("4950", "4951");
+    // instance two ("4951", "4950");
+    Pong pong("4950", "4951");
+    // Pong pong("4951", "4950");
     pong.setup();
 
-    std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
-    input.detach();
+    // std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
+    // input.detach();
 
     pong.loop();
 

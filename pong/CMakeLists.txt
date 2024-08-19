@@ -15,6 +15,7 @@ add_executable(
     ../controller/keyboard.cpp 
     ../controller/serialRead.cpp
     ../controller/arduino.cpp
+    ../multiplayer/communication.cpp
 )
 find_path(RL_INCLUDE_DIR NAMES raylib.h PATHS /opt/homebrew/opt/raylib/include)
 include_directories(${RL_INCLUDE_DIR})

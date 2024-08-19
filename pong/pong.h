@@ -1,30 +1,39 @@
 #ifndef PONG_H
 #define PONG_H
 #include "gameArea.h"
-
-// maybe keep the PongDataStruct here?
-struct
-{
-    int ballPosX;
-    int ballPosY;
-    int paddlePosX;
-    int paddlePosY;
-} typedef PongComm;
+#include "../multiplayer/communication.h"
+#include <string>
+#include <thread>
 
 class Pong
 {
 public:
-    Pong() : gameArea(),
-             thisData({200, 300, 400, 500}),
-             thatData({0, 0, 0, 0}) {};
+    Pong(
+        std::string thisPort,
+        std::string theirPort)
+        : gameArea(),
+          thisData(new PongComm{200, 300, 400, 500}),
+          thatData(new PongComm{0, 0, 0, 0}),
+          communication(new Communication(thisPort, theirPort, thisData, thatData))
+    {
+        std::thread server(&Communication::startServer, communication);
+        server.detach();
+    };
+    ~Pong()
+    {
+        delete thisData;
+        delete thatData;
+        delete communication;
+    }
     void setup();
     void loop();
     char *getSerialPtr();
 
 private:
     GameArea gameArea;
-    PongComm thisData;
-    PongComm thatData;
+    PongComm *thisData;
+    PongComm *thatData;
+    Communication *communication;
 };
 
 #endif

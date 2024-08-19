@@ -17,8 +17,7 @@ void Pong::loop()
         ClearBackground(BLACK);
 
         gameArea.loop();
-        // we should send here
-        // we should receive here
+        communication->clientSend();
 
         EndDrawing();
     }

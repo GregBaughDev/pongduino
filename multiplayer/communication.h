@@ -1,30 +1,30 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
-// #include "../pong/pong.h"
 #include <string>
 #include <sstream>
 #include <array>
 
-// chuck this here for testing (remove!)
-struct
+typedef struct
 {
     int ballPosX;
     int ballPosY;
     int paddlePosX;
     int paddlePosY;
-} typedef PongCommTest;
+} PongComm;
 
 class Communication
 {
 public:
     Communication(
-        std::string myPort,
-        std::string theirPort)
-        : rcvPort(myPort),
+        std::string thisPort,
+        std::string theirPort,
+        PongComm *thisData,
+        PongComm *thatData)
+        : rcvPort(thisPort),
           sndPort(theirPort),
           stringStream(new std::stringstream),
-          rcvComm(new PongCommTest({0, 0, 0, 0})),
-          sndComm(new PongCommTest({100, 69, 800, 123})),
+          rcvComm(thatData),
+          sndComm(thisData),
           sendBuf(new char[maxBufLen]),
           rcvBuf(new char[maxBufLen])
     {
@@ -34,7 +34,9 @@ public:
     ~Communication()
     {
         closeResources();
-        // we also need to delete everything here created with new
+        delete stringStream;
+        delete[] sendBuf;
+        delete[] rcvBuf;
     };
     void startServer();
     void clientSend();
@@ -56,8 +58,8 @@ private:
     char *sendBuf;
     struct addrinfo *serverAddress;
     std::stringstream *stringStream;
-    PongCommTest *rcvComm;
-    PongCommTest *sndComm;
+    PongComm *rcvComm;
+    PongComm *sndComm;
 };
 
 #endif
