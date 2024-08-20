@@ -16,6 +16,7 @@ public:
           colour(RAYWHITE) {};
     void loop();
     Rectangle getRectangle();
+    void setPaddle(int x, int y);
 
 private:
     void handleMovement();

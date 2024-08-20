@@ -6,7 +6,7 @@ void GameArea::loop()
 {
     DrawLine(GameArea::width / 2, 0, GameArea::width / 2.0, GameArea::height, RAYWHITE);
     handlePaddles();
-    ball.handleBall();
+    // ball.handleBall();
     checkAndPublishCollision();
     checkIsOut();
     score.displayScore();
@@ -43,4 +43,30 @@ void GameArea::checkIsOut()
 char *GameArea::getSerialValuePtr()
 {
     return serialValue;
+}
+
+Paddle *GameArea::getPaddle()
+{
+    switch (paddlePos)
+    {
+    case L:
+        return &l_paddle;
+        break;
+    case R:
+        return &r_paddle;
+        break;
+    }
+}
+
+Paddle *GameArea::getOtherPaddle()
+{
+    switch (paddlePos)
+    {
+    case L:
+        return &r_paddle;
+        break;
+    case R:
+        return &l_paddle;
+        break;
+    }
 }

@@ -17,6 +17,7 @@ void Pong::loop()
         ClearBackground(BLACK);
 
         gameArea.loop();
+        updateCommData();
         communication->clientSend();
 
         EndDrawing();
@@ -28,4 +29,19 @@ void Pong::loop()
 char *Pong::getSerialPtr()
 {
     return gameArea.getSerialValuePtr();
+}
+
+void Pong::updateCommData()
+{
+    thisData->paddlePosX = gameArea.getPaddle()->getRectangle().x;
+    thisData->paddlePosY = gameArea.getPaddle()->getRectangle().y;
+}
+
+void Pong::publishRcvData()
+{
+    // current state
+    // this isn't working - thoughts, it could be to do with passing the pointer over the thread
+    // would be good to confirm thatData is receiving the data
+    // also need to update the paddles so we can only control one
+    gameArea.getOtherPaddle()->setPaddle(thatData->paddlePosX, thatData->paddlePosY);
 }

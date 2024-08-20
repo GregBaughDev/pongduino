@@ -10,8 +10,9 @@ class Pong
 public:
     Pong(
         std::string thisPort,
-        std::string theirPort)
-        : gameArea(),
+        std::string theirPort,
+        PlayerPaddle playerPos)
+        : gameArea(playerPos),
           thisData(new PongComm{200, 300, 400, 500}),
           thatData(new PongComm{0, 0, 0, 0}),
           communication(new Communication(thisPort, theirPort, thisData, thatData))
@@ -30,6 +31,9 @@ public:
     char *getSerialPtr();
 
 private:
+    // TO DO - come back to ball pos
+    void updateCommData();
+    void publishRcvData();
     GameArea gameArea;
     PongComm *thisData;
     PongComm *thatData;

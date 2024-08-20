@@ -24,3 +24,9 @@ Rectangle Paddle::getRectangle()
 {
     return rectangle;
 }
+
+void Paddle::setPaddle(int x, int y)
+{
+    rectangle.x = x;
+    rectangle.y = y;
+}
