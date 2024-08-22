@@ -31,7 +31,6 @@ public:
     char *getSerialPtr();
 
 private:
-    // TO DO - come back to ball pos
     void updateCommData();
     void publishRcvData();
     GameArea gameArea;

@@ -19,6 +19,7 @@ void Pong::loop()
         gameArea.loop();
         updateCommData();
         communication->clientSend();
+        publishRcvData();
 
         EndDrawing();
     }
@@ -39,9 +40,17 @@ void Pong::updateCommData()
 
 void Pong::publishRcvData()
 {
-    // current state
-    // this isn't working - thoughts, it could be to do with passing the pointer over the thread
-    // would be good to confirm thatData is receiving the data
-    // also need to update the paddles so we can only control one
+    // current state - now need to
+    // only allow one paddle to be controlled - the other is controlled by the server
+    // sort out the weird issue when the paddle gets to the top of the screen
+    // do the ball server
+    // stop the servers more gracefully
     gameArea.getOtherPaddle()->setPaddle(thatData->paddlePosX, thatData->paddlePosY);
 }
+
+// ball server plan
+// will be running it's own version of the game without a gui
+// will use the position of the paddles for the game play
+// publish out the ball position in the existing struct
+// will create a ballViewer class that will just display the ball
+// based on position from server

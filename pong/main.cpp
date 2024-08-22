@@ -9,8 +9,8 @@ int main()
 
     // instance one ("4950", "4951");
     // instance two ("4951", "4950");
-    Pong pong("4950", "4951");
-    // Pong pong("4951", "4950");
+    Pong pong("4950", "4951", L);
+    // Pong pong("4951", "4950", R);
     pong.setup();
 
     // std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
