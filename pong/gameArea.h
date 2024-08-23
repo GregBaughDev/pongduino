@@ -25,7 +25,15 @@ public:
           //   l_paddle(Paddle(new Arduino('4', '3', serialValue), 40)),
           //   r_paddle(Paddle(new Arduino('2', '1', serialValue), width - 60)),
           score(Score()),
-          paddlePos(playerPaddle) {};
+          paddlePos(playerPaddle) {
+            if (playerPaddle == L) {
+                r_paddle.setIsActive(false);
+                l_paddle.setIsActive(true);
+            } else {
+                l_paddle.setIsActive(false);
+                r_paddle.setIsActive(true);
+            }
+          };
     void loop();
     static const int height = 600;
     static const int width = 800;

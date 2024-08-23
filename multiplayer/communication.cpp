@@ -6,6 +6,7 @@
 #include <string>
 #include <bitset>
 #include <sstream>
+#include <string.h>
 
 void Communication::initialiseServer()
 {

@@ -17,7 +17,7 @@ public:
     void loop();
     Rectangle getRectangle();
     void setPaddle(int x, int y);
-
+    void setIsActive(bool isActive);
 private:
     void handleMovement();
     const float width;
@@ -26,6 +26,7 @@ private:
     Controller *controller;
     Rectangle rectangle;
     Color colour;
+    bool isActive;
 };
 
 #endif

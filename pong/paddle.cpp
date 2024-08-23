@@ -4,7 +4,9 @@
 
 void Paddle::loop()
 {
-    handleMovement();
+    if (isActive) {
+        handleMovement();
+    }
     DrawRectangleRec(rectangle, colour);
 }
 
@@ -29,4 +31,9 @@ void Paddle::setPaddle(int x, int y)
 {
     rectangle.x = x;
     rectangle.y = y;
+}
+
+void Paddle::setIsActive(bool isActiveValue)
+{
+    isActive = isActiveValue;
 }
