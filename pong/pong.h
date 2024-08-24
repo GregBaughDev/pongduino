@@ -13,7 +13,7 @@ public:
         std::string theirPort,
         PlayerPaddle playerPos)
         : gameArea(playerPos),
-          thisData(new PongComm{200, 300, 400, 500}),
+          thisData(new PongComm{0, 0, 0, 0}),
           thatData(new PongComm{0, 0, 0, 0}),
           communication(new Communication(thisPort, theirPort, thisData, thatData))
     {

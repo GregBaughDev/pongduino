@@ -41,9 +41,8 @@ void Pong::updateCommData()
 void Pong::publishRcvData()
 {
     // current state - now need to
-    // sort out the weird issue when the paddle gets to the top of the screen
-    // do the ball server
     // stop the servers more gracefully
+    // do the ball server
     gameArea.getOtherPaddle()->setPaddle(thatData->paddlePosX, thatData->paddlePosY);
 }
 

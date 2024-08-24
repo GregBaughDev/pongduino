@@ -4,7 +4,8 @@
 
 void Paddle::loop()
 {
-    if (isActive) {
+    if (isActive)
+    {
         handleMovement();
     }
     DrawRectangleRec(rectangle, colour);
@@ -12,11 +13,11 @@ void Paddle::loop()
 
 void Paddle::handleMovement()
 {
-    if (controller->isUpKeyDown() && rectangle.y >= 0)
+    if (controller->isUpKeyDown() && rectangle.y > 0)
     {
         rectangle.y -= paddleSpeed;
     }
-    else if (controller->isDownKeyDown() && (rectangle.y + height <= GameArea::height))
+    else if (controller->isDownKeyDown() && (rectangle.y + height < GameArea::height))
     {
         rectangle.y += paddleSpeed;
     }

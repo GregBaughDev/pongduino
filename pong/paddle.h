@@ -12,12 +12,13 @@ public:
           height(100),
           paddleSpeed(25), // 15 keyboard
           controller(inputType),
-          rectangle({xPos, 20, width, height}),
+          rectangle({xPos, 250, width, height}),
           colour(RAYWHITE) {};
     void loop();
     Rectangle getRectangle();
     void setPaddle(int x, int y);
     void setIsActive(bool isActive);
+
 private:
     void handleMovement();
     const float width;
