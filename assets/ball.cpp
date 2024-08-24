@@ -1,5 +1,5 @@
 #include "ball.h"
-#include "gameArea.h"
+#include "../pong/gameArea.h"
 #include <unistd.h>
 
 void Ball::handleBall()
@@ -11,7 +11,9 @@ void Ball::handleBall()
         speedY = 1;
         sleep(1);
         isStop = false;
-    } else {
+    }
+    else
+    {
         movementManager();
     }
     DrawCircle(circle.x, circle.y, radius, colour);

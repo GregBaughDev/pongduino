@@ -1,5 +1,5 @@
 #include "paddle.h"
-#include "gameArea.h"
+#include "../pong/gameArea.h"
 #include <raylib.h>
 
 void Paddle::loop()

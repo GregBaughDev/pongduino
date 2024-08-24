@@ -9,13 +9,13 @@ add_executable(
     main.cpp 
     pong.cpp 
     gameArea.cpp 
-    paddle.cpp 
-    ball.cpp 
     score.cpp 
     ../controller/keyboard.cpp 
     ../controller/serialRead.cpp
     ../controller/arduino.cpp
     ../multiplayer/communication.cpp
+    ../assets/paddle.cpp
+    ../assets/ball.cpp
 )
 find_path(RL_INCLUDE_DIR NAMES raylib.h PATHS /opt/homebrew/opt/raylib/include)
 include_directories(${RL_INCLUDE_DIR})

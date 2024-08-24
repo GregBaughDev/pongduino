@@ -1,7 +1,7 @@
 #ifndef GAME_AREA_H
 #define GAME_AREA_H
-#include "paddle.h"
-#include "ball.h"
+#include "../assets/paddle.h"
+#include "../assets/ball.h"
 #include "score.h"
 #include "../controller/arduino.h"
 #include "../controller/keyboard.h"
