@@ -14,21 +14,21 @@ void GameArea::loop()
 
 void GameArea::handlePaddles()
 {
-    l_paddle.loop();
-    r_paddle.loop();
+    lPaddle.loop();
+    rPaddle.loop();
 }
 
 void GameArea::checkAndPublishCollision()
 {
     if (
-        CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, l_paddle.getRectangle()))
+        CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, lPaddle.getRectangle()))
     {
-        ball.receiveHit(ball.getCircle().y - l_paddle.getRectangle().y);
+        ball.receiveHit(ball.getCircle().y - lPaddle.getRectangle().y);
     }
 
-    if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, r_paddle.getRectangle()))
+    if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, rPaddle.getRectangle()))
     {
-        ball.receiveHit(ball.getCircle().y - r_paddle.getRectangle().y);
+        ball.receiveHit(ball.getCircle().y - rPaddle.getRectangle().y);
     }
 }
 
@@ -50,10 +50,10 @@ Paddle *GameArea::getPaddle()
     switch (paddlePos)
     {
     case L:
-        return &l_paddle;
+        return &lPaddle;
         break;
     case R:
-        return &r_paddle;
+        return &rPaddle;
         break;
     }
 }
@@ -63,10 +63,10 @@ Paddle *GameArea::getOtherPaddle()
     switch (paddlePos)
     {
     case L:
-        return &r_paddle;
+        return &rPaddle;
         break;
     case R:
-        return &l_paddle;
+        return &lPaddle;
         break;
     }
 }
