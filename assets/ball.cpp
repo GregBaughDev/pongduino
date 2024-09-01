@@ -16,7 +16,7 @@ void Ball::handleBall()
     {
         movementManager();
     }
-    DrawCircle(circle.x, circle.y, radius, colour);
+    // DrawCircle(circle.x, circle.y, radius, colour);
 }
 
 Vector2 Ball::getCircle()

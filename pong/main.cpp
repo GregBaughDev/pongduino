@@ -1,5 +1,6 @@
 #include "pong.h"
 #include "../controller/serialRead.h"
+#include "../multiplayer/gameserver.h"
 #include <thread>
 
 int main()
@@ -9,14 +10,18 @@ int main()
 
     // instance one ("4950", "4951");
     // instance two ("4951", "4950");
-    Pong pong("4950", "4951", L);
-    // Pong pong("4951", "4950", R);
-    pong.setup();
+    // Pong pong("4950", "4951", L);
+    // // Pong pong("4951", "4950", R);
+    // pong.setup();
 
-    // std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
-    // input.detach();
+    // // std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
+    // // input.detach();
 
-    pong.loop();
+    // pong.loop();
+
+    GameServer gameserver("4951", "4950");
+
+    gameserver.loop();
 
     return 0;
 }

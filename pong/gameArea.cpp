@@ -6,7 +6,7 @@ void GameArea::loop()
 {
     DrawLine(GameArea::width / 2, 0, GameArea::width / 2.0, GameArea::height, RAYWHITE);
     handlePaddles();
-    // ball.handleBall();
+    ball.loop();
     checkAndPublishCollision();
     checkIsOut();
     score.displayScore();
@@ -20,24 +20,24 @@ void GameArea::handlePaddles()
 
 void GameArea::checkAndPublishCollision()
 {
-    if (
-        CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, lPaddle.getRectangle()))
-    {
-        ball.receiveHit(ball.getCircle().y - lPaddle.getRectangle().y);
-    }
+    // if (
+    //     CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, lPaddle.getRectangle()))
+    // {
+    //     ball.receiveHit(ball.getCircle().y - lPaddle.getRectangle().y);
+    // }
 
-    if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, rPaddle.getRectangle()))
-    {
-        ball.receiveHit(ball.getCircle().y - rPaddle.getRectangle().y);
-    }
+    // if (CheckCollisionCircleRec(ball.getCircle(), ball.getRadius() + 1, rPaddle.getRectangle()))
+    // {
+    //     ball.receiveHit(ball.getCircle().y - rPaddle.getRectangle().y);
+    // }
 }
 
 void GameArea::checkIsOut()
 {
-    if (ball.getCircle().x <= 0 || ball.getCircle().x >= width)
-    {
-        ball.setIsStop();
-    }
+    // if (ball.getCircle().x <= 0 || ball.getCircle().x >= width)
+    // {
+    //     ball.setIsStop();
+    // }
 }
 
 char *GameArea::getSerialValuePtr()
@@ -69,4 +69,9 @@ Paddle *GameArea::getOtherPaddle()
         return &lPaddle;
         break;
     }
+}
+
+void GameArea::setBallView(int newX, int newY)
+{
+    ball.setCircle(newX, newY);
 }

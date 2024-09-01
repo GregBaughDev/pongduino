@@ -44,6 +44,7 @@ void Pong::publishRcvData()
     // stop the servers more gracefully
     // do the ball server
     gameArea.getOtherPaddle()->setPaddle(thatData->paddlePosX, thatData->paddlePosY);
+    gameArea.setBallView(thatData->ballPosX, thatData->ballPosY);
 }
 
 // ball server plan

@@ -156,7 +156,7 @@ void Communication::unpackageBytesInBuf(int *value, int posB1)
 
 void Communication::packageBytesInBuf(int value, int posB1)
 {
-    std::bitset ballPosXBs = std::bitset<16>(value);
+    std::bitset valueToBitset = std::bitset<16>(value);
 
     char b1 = 0;
     char b2 = 0;
@@ -167,12 +167,12 @@ void Communication::packageBytesInBuf(int value, int posB1)
         if (i > 7)
         {
             b1 <<= 1;
-            b1 |= ballPosXBs[i];
+            b1 |= valueToBitset[i];
         }
         else
         {
             b2 <<= 1;
-            b2 |= ballPosXBs[i];
+            b2 |= valueToBitset[i];
         }
     }
 

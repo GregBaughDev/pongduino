@@ -1,7 +1,7 @@
 #ifndef GAME_AREA_H
 #define GAME_AREA_H
 #include "../assets/paddle.h"
-#include "../assets/ball.h"
+#include "../assets/ballview.h"
 #include "score.h"
 #include "../controller/arduino.h"
 #include "../controller/keyboard.h"
@@ -17,7 +17,7 @@ class GameArea
 {
 public:
     GameArea(PlayerPaddle playerPaddle)
-        : ball(Ball(width / 2.0, height / 2.0)),
+        : ball(BallView()),
           serialValue((char *)malloc(1)),
           // to do - move the below to Pong
           lPaddle(Paddle(new Keyboard(KEY_E, KEY_X), 40)),
@@ -44,12 +44,13 @@ public:
     char *getSerialValuePtr();
     Paddle *getPaddle();
     Paddle *getOtherPaddle();
+    void setBallView(int newX, int newY);
 
 private:
     void handlePaddles();
     void checkAndPublishCollision();
     void checkIsOut();
-    Ball ball;
+    BallView ball;
     char *serialValue;
     Paddle lPaddle;
     Paddle rPaddle;
