@@ -1,152 +1,17 @@
 #include "communication.h"
-#include <netdb.h>
-#include <sys/socket.h>
-#include <iostream>
-#include <unistd.h>
-#include <string>
 #include <bitset>
-#include <sstream>
-#include <string.h>
 
-void Communication::initialiseServer()
+/*
+ * Unpacks two bytes from a provided char buffer and sets the value of the
+ * provided int pointer to the result
+ *
+ * @param *value pointer to the value which the result will be set to
+ * @param posB1 the position of the required value to be unpacked in the buffer
+ * @param *rcvBuf pointer to the character buffer the values should be unpackaged from
+ */
+void Communication::unpackageBytesInBuf(int *value, int posB1, const char *rcvBuf)
 {
-    struct addrinfo hints;
-    struct addrinfo *servinfo;
-
-    memset(&hints, 0, sizeof hints);
-    hints.ai_family = AF_INET6;
-    hints.ai_socktype = SOCK_DGRAM; // UDP
-    hints.ai_flags = AI_PASSIVE;
-
-    // get the internet address info that matches the request in hints
-    // and store these in the servinfo structure (a linked list)
-    int getAddrInfoRes;
-    if ((getAddrInfoRes = getaddrinfo(NULL, rcvPort.c_str(), &hints, &servinfo)) != 0)
-    {
-        std::cerr << "server: getaddrinfo failed -> " << gai_strerror(getAddrInfoRes) << "\n";
-        exit(1);
-    }
-
-    // loop through the results and bind to the first
-    struct addrinfo *p;
-    for (p = servinfo; p != NULL; p = p->ai_next)
-    {
-        if ((rcvFd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1)
-        {
-            continue;
-        }
-
-        if (bind(rcvFd, p->ai_addr, p->ai_addrlen) == -1)
-        {
-            close(rcvFd);
-            std::cerr << "server: error binding port\n";
-            exit(1);
-        }
-
-        break;
-    }
-
-    if (p == NULL)
-    {
-        std::cerr << "server: failed to bind the socket\n";
-        exit(1);
-    }
-
-    freeaddrinfo(servinfo);
-}
-
-void Communication::startServer()
-{
-    struct sockaddr_storage theirAddr;
-    socklen_t addrLen = sizeof theirAddr;
-
-    while (true)
-    {
-        if (recvfrom(rcvFd, rcvBuf, maxBufLen, 0, (struct sockaddr *)&theirAddr, &addrLen) == -1)
-        {
-            std::cerr << "error receiving bytes " << strerror(errno) << "\n";
-            exit(2);
-        }
-
-        dataUnmarshall();
-        // to do - remove once tested
-        // std::cout << "ballPosX is " << rcvComm->ballPosX << "\n";
-        // std::cout << "ballPosY is " << rcvComm->ballPosY << "\n";
-        // std::cout << "paddlePosX is " << rcvComm->paddlePosX << "\n";
-        // std::cout << "paddlePosY is " << rcvComm->paddlePosY << "\n";
-    }
-}
-
-void Communication::closeResources()
-{
-    close(rcvFd);
-    close(sndFd);
-}
-
-void Communication::initialiseClient()
-{
-    struct addrinfo hints;
-    struct addrinfo *servinfo;
-
-    memset(&hints, 0, sizeof hints);
-    hints.ai_family = AF_INET6;
-    hints.ai_socktype = SOCK_DGRAM;
-
-    int getAddrInfoRes;
-    if ((getAddrInfoRes = getaddrinfo("localhost", sndPort.c_str(), &hints, &servinfo)) != 0)
-    {
-        std::cerr << "client: getaddrinfo failed -> " << gai_strerror(getAddrInfoRes) << "\n";
-        exit(1);
-    }
-
-    for (serverAddress = servinfo; serverAddress != NULL; serverAddress = serverAddress->ai_next)
-    {
-        if ((sndFd = socket(serverAddress->ai_family, serverAddress->ai_socktype, serverAddress->ai_protocol)) == -1)
-        {
-            continue;
-        }
-
-        break;
-    }
-
-    if (serverAddress == NULL)
-    {
-        std::cerr << "client: failed to bind the socket\n";
-        exit(1);
-    }
-}
-
-void Communication::clientSend()
-{
-    dataMarshall();
-
-    int bytesSent;
-    if ((bytesSent = sendto(sndFd, sendBuf, maxBufLen, 0, serverAddress->ai_addr, serverAddress->ai_addrlen)) == -1)
-    {
-        std::cerr << "client: failed to send. errno -> " << strerror(errno) << "\n";
-        exit(2);
-    }
-}
-
-void Communication::dataUnmarshall()
-{
-    unpackageBytesInBuf(&rcvComm->ballPosX, 0);
-    unpackageBytesInBuf(&rcvComm->ballPosY, 2);
-    unpackageBytesInBuf(&rcvComm->paddlePosX, 4);
-    unpackageBytesInBuf(&rcvComm->paddlePosY, 6);
-}
-
-void Communication::dataMarshall()
-{
-    packageBytesInBuf(sndComm->ballPosX, 0);
-    packageBytesInBuf(sndComm->ballPosY, 2);
-    packageBytesInBuf(sndComm->paddlePosX, 4);
-    packageBytesInBuf(sndComm->paddlePosY, 6);
-}
-
-void Communication::unpackageBytesInBuf(int *value, int posB1)
-{
-    // to do - can we reuse bitset classes save instantiating each time?
+    // TODO - can we reuse bitset classes save instantiating each time?
     std::bitset firstPos = std::bitset<8>(rcvBuf[posB1]);
     std::bitset secondPos = std::bitset<8>(rcvBuf[posB1 + 1]);
     std::bitset result = std::bitset<16>(firstPos.to_ulong() << firstPos.size() | secondPos.to_ulong());
@@ -154,7 +19,14 @@ void Communication::unpackageBytesInBuf(int *value, int posB1)
     *value = static_cast<int>(result.to_ulong());
 }
 
-void Communication::packageBytesInBuf(int value, int posB1)
+/*
+ * Packages an integer value into two bytes and inserts them into a char buffer
+ *
+ * @param value the int value to be converted into bytes
+ * @param posB1 the position in the buffer where the two bytes should be inserted
+ * @param *sendbuf pointer to the char buffer which is going to be sent to the client/server
+ */
+void Communication::packageBytesInBuf(int value, int posB1, char *sendBuf)
 {
     std::bitset valueToBitset = std::bitset<16>(value);
 
