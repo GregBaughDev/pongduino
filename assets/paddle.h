@@ -8,9 +8,7 @@ class Paddle
 {
 public:
     Paddle(Controller *inputType, float xPos)
-        : width(20),
-          height(100),
-          paddleSpeed(25), // 15 keyboard
+        : paddleSpeed(25), // 15 keyboard
           controller(inputType),
           rectangle({xPos, 250, width, height}),
           colour(RAYWHITE) {};
@@ -18,11 +16,13 @@ public:
     Rectangle getRectangle();
     void setPaddle(int x, int y);
     void setIsActive(bool isActive);
+    static float getHeight();
+    static float getWidth();
 
 private:
     void handleMovement();
-    const float width;
-    const float height;
+    static constexpr float height = 100;
+    static constexpr float width = 20;
     int paddleSpeed;
     Controller *controller;
     Rectangle rectangle;

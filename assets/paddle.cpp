@@ -38,3 +38,13 @@ void Paddle::setIsActive(bool isActiveValue)
 {
     isActive = isActiveValue;
 }
+
+float Paddle::getHeight()
+{
+    return height;
+}
+
+float Paddle::getWidth()
+{
+    return width;
+}

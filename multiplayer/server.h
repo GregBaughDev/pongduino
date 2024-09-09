@@ -6,8 +6,8 @@
 #include <thread>
 
 /*
- * Upon instantiation it will start the server on a new thread and handle
- * communication with the game clients
+ * Upon instantiation it will start the server on a new thread. This is joined
+ * in the GameServer class.
  */
 class Server : private Communication
 {
@@ -25,16 +25,19 @@ public:
           Communication()
     {
         initialise();
-        std::thread serverRunThread(&Server::run, this);
-
-        serverRunThread.join();
+        serverRunThread = std::thread(&Server::run, this);
     };
 
+protected:
+    PongComm *gameState;
+    PaddleComm *paddleState;
+    std::thread serverRunThread;
+
 private:
+    void send();
     void run();
     void initialise();
     void closeResources();
-    void send();
     void dataUnmarshall();
     void dataMarshall();
     void updateGameStateFromPaddle();
@@ -44,8 +47,6 @@ private:
     char *rcvBuf; // the server receives paddle data (PaddleComm)
     int sendBufLen;
     char *sendBuf; // the server sends the whole game state (PongComm)
-    PongComm *gameState;
-    PaddleComm *paddleState;
     sockaddr_storage clientAddr;
     socklen_t addrLen;
 };

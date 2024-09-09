@@ -1,33 +1,37 @@
 #ifndef GAMESERVER_H
 #define GAMESERVER_H
 #include "../assets/ball.h"
-#include "./communication.h"
+#include "../assets/paddlevirtual.h"
+#include "server.h"
 #include <string>
 
-class GameServer
+/*
+ * Upon instantiation it will start the server on a new thread and handle
+ * communication with the game clients
+ */
+class GameServer : private Server
 {
 public:
-    GameServer(std::string thisPort, std::string theirPort)
+    GameServer(std::string serverPort, int clientPort1, int clientPort2)
         : ball(Ball(100, 200)),
-          thisData(new PongComm({0, 0, 0, 0})),
-          thatData(new PongComm({0, 0, 0, 0})),
-          communication(new Communication(thisPort, theirPort, thisData, thatData)) {}; // hardcode the Ball constructor x and y for the min
-    void loop();
-    ~GameServer()
+          lPaddle(), // Do we need this?
+          rPaddle(),
+          Server(serverPort, clientPort1, clientPort2)
     {
-        delete thisData;
-        delete thatData;
-        delete communication;
+        std::thread gameServerThread(&GameServer::loop, this);
+
+        serverRunThread.join();
+        gameServerThread.join();
     };
 
 private:
     Ball ball;
-    PongComm *thisData;
-    PongComm *thatData;
-    Communication *communication;
+    PaddleVirtual lPaddle;
+    PaddleVirtual rPaddle;
+    void loop();
 };
 
-// GameServer plan
+// GameServer plan USE THIS AS MAIN NOTES AREA!
 // will be running it's own version of the game without a gui
 // will use the position of the paddles for the game play
 // publish out the ball position in the existing struct
@@ -35,11 +39,12 @@ private:
 
 #endif
 
+// Current state
+// We now have the client and server classes working. Next step is to break out the
+// pong and gamearea classes to be runnable in the gameserver and also for the gui versions of the
+// game
+
 // TO DO
-
 // update any initialisations with { } initialisation
-
-// STEP ONE -> Move the ball and publish out it's position
-// Consume it in one instance of the game
-// COMPLETE - WE'RE GETTING THE BALL DATA, JUST SUPER FAST!
-// need to slow it down to 60 fps
+// replace new and delete with stack pointers
+// or do it all with shared pointers - come back to this

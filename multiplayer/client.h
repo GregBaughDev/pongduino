@@ -47,10 +47,3 @@ private:
 };
 
 #endif
-
-// Current state
-// we have the communication between the client and server happening.
-// next we need to update the game server and two instances of the game
-
-// replace new and delete with stack pointers
-// or do it all with shared pointers - come back to this
