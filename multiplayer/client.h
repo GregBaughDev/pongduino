@@ -6,29 +6,25 @@
 class Client : private Communication
 {
 public:
-    Client(std::string port)
+    Client(std::string port, PongComm *gameData, PaddleComm *paddleData)
         : serverPort(port),
           rcvBufLen(sizeof(PongComm)),
           rcvBuf(new char[rcvBufLen]),
           sendBufLen(sizeof(PaddleComm)),
           sendBuf(new char[sendBufLen]),
-          gameState(new PongComm({0, 0, 0, 0, 0, 0})),
-          paddleState(new PaddleComm({1, 220, 330})),
+          gameState(gameData),
+          paddleState(paddleData),
           Communication()
     {
         initialise();
     };
     ~Client()
     {
+        closeResources();
         delete[] rcvBuf;
         delete[] sendBuf;
-        delete gameState;
-        delete paddleState;
-
-        closeResources();
     };
     void send(); // TODO move this somewhere else, can it be protected?
-    PongComm *gameState;
 
 private:
     void initialise();
@@ -43,6 +39,7 @@ private:
     char *rcvBuf;
     int sendBufLen;
     char *sendBuf; // this will be the paddle data
+    PongComm *gameState;
     PaddleComm *paddleState;
 };
 

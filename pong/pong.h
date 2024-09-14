@@ -1,7 +1,7 @@
 #ifndef PONG_H
 #define PONG_H
 #include "gameArea.h"
-#include "../multiplayer/communication.h"
+#include "../multiplayer/client.h"
 #include <string>
 #include <thread>
 
@@ -9,34 +9,34 @@ class Pong
 {
 public:
     Pong(
-        std::string thisPort,
-        std::string theirPort,
+        std::string serverPort,
         PlayerPaddle playerPos)
-        : gameArea(playerPos),
-          thisData(new PongComm{0, 0, 0, 0}),
-          thatData(new PongComm{0, 0, 0, 0}),
-          communication(new Communication(thisPort, theirPort, thisData, thatData))
+        : gameArea(GameArea(playerPos)),
+          playerPos(playerPos),
+          gameData(new PongComm{0, 0, 0, 0}),
+          paddleData(new PaddleComm{playerPos, 0, 0}),
+          client(new Client(serverPort, gameData, paddleData))
     {
-        std::thread server(&Communication::startServer, communication);
-        server.detach();
+        setup();
     };
     ~Pong()
     {
-        delete thisData;
-        delete thatData;
-        delete communication;
+        delete client;
+        delete gameData;
+        delete paddleData;
     }
-    void setup();
     void loop();
     char *getSerialPtr();
 
 private:
-    void updateCommData();
-    void publishRcvData();
+    void setup();
+    void updatePaddleData();
+    void receiveGameData();
+    PlayerPaddle playerPos;
     GameArea gameArea;
-    PongComm *thisData;
-    PongComm *thatData;
-    Communication *communication;
+    PongComm *gameData;
+    PaddleComm *paddleData;
+    Client *client;
 };
 
 #endif

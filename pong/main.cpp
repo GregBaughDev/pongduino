@@ -7,21 +7,14 @@ int main()
 {
     // SerialRead serialRead("/dev/ttyACM0");
     // SerialRead serialRead("/dev/cu.usbmodem142201");
+    // std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
+    // input.detach();
 
-    // instance one ("4950", "4951");
-    // instance two ("4951", "4950");
-    // Pong pong("4950", "4951", L);
-    // // Pong pong("4951", "4950", R);
-    // pong.setup();
+    // Pong pong("4951", L);
+    Pong pong("4951", R);
+    pong.loop();
 
-    // // std::thread input(&SerialRead::stream, serialRead, pong.getSerialPtr());
-    // // input.detach();
-
-    // pong.loop();
-
-    GameServer gameserver("4951", "4950");
-
-    gameserver.loop();
+    // GameServer gameserver("4951");
 
     return 0;
 }

@@ -12,11 +12,11 @@
 class GameServer : private Server
 {
 public:
-    GameServer(std::string serverPort, int clientPort1, int clientPort2)
+    GameServer(std::string serverPort)
         : ball(Ball(100, 200)),
-          lPaddle(), // Do we need this?
-          rPaddle(),
-          Server(serverPort, clientPort1, clientPort2)
+          lPaddle(PaddleVirtual()), // Do we need this?
+          rPaddle(PaddleVirtual()),
+          Server(serverPort)
     {
         std::thread gameServerThread(&GameServer::loop, this);
 
@@ -25,10 +25,12 @@ public:
     };
 
 private:
+    void loop();
+    void checkAndPublishCollision();
+    void checkIsOut();
     Ball ball;
     PaddleVirtual lPaddle;
     PaddleVirtual rPaddle;
-    void loop();
 };
 
 // GameServer plan USE THIS AS MAIN NOTES AREA!
@@ -40,11 +42,10 @@ private:
 #endif
 
 // Current state
-// We now have the client and server classes working. Next step is to break out the
-// pong and gamearea classes to be runnable in the gameserver and also for the gui versions of the
-// game
-
-// TO DO
+// The direction of data flows is super wacky
+// need to also do a health check to confirm server is running when starting a pong game
 // update any initialisations with { } initialisation
 // replace new and delete with stack pointers
 // or do it all with shared pointers - come back to this
+// rename gameArea.h to gamearea.h
+// add documentation

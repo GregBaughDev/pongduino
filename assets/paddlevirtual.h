@@ -1,5 +1,5 @@
-#ifndef PADDLEVIEW_H
-#define PADDLEVIEW_H
+#ifndef PADDLEVIRTUAL_H
+#define PADDLEVIRTUAL_H
 #include "paddle.h"
 #include "raylib.h"
 
@@ -11,8 +11,9 @@ class PaddleVirtual
 {
 public:
     PaddleVirtual()
-        : rectangle({0, 250, Paddle::getWidth(), Paddle::getHeight()}) {};
-    void setRectangle(float newXPos);
+        : rectangle({0, 250, Paddle::getWidth(), Paddle::getHeight()}) {}; // TO DO Update this constructor pos
+    void setRectangle(float newXPos, float newYPos);
+    Rectangle getRectangle();
 
 private:
     Rectangle rectangle;

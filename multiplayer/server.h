@@ -12,25 +12,34 @@
 class Server : private Communication
 {
 public:
-    Server(std::string port,
-           int clientPort1,
-           int clientPort2)
+    Server(std::string port)
         : rcvBufLen(sizeof(PaddleComm)),
           rcvBuf(new char[rcvBufLen]),
           sendBufLen(sizeof(PongComm)),
           sendBuf(new char[sendBufLen]),
           gameState(new PongComm({100, 200, 300, 400, 500, 600})),
-          paddleState(new PaddleComm({0, 0, 0})),
+          lPaddleState(new PaddleComm({0, 0, 0})),
+          rPaddleState(new PaddleComm({0, 0, 0})),
           serverPort(port),
+          rcvPaddle(0),
           Communication()
     {
         initialise();
         serverRunThread = std::thread(&Server::run, this);
     };
+    ~Server()
+    {
+        delete[] rcvBuf;
+        delete[] sendBuf;
+        delete gameState;
+        delete lPaddleState;
+        delete rPaddleState;
+    };
 
 protected:
     PongComm *gameState;
-    PaddleComm *paddleState;
+    PaddleComm *lPaddleState;
+    PaddleComm *rPaddleState;
     std::thread serverRunThread;
 
 private:
@@ -41,6 +50,7 @@ private:
     void dataUnmarshall();
     void dataMarshall();
     void updateGameStateFromPaddle();
+    int rcvPaddle;
     int serverFd;
     std::string serverPort;
     int rcvBufLen;

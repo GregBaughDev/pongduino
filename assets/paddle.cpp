@@ -4,10 +4,7 @@
 
 void Paddle::loop()
 {
-    if (isActive)
-    {
-        handleMovement();
-    }
+    handleMovement();
     DrawRectangleRec(rectangle, colour);
 }
 

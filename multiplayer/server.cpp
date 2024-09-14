@@ -62,7 +62,7 @@ void Server::initialise()
  */
 void Server::run()
 {
-    std::cout << "Starting server...\n";
+    std::cout << "Starting server on port " << serverPort << "\n";
 
     while (true)
     {
@@ -85,9 +85,18 @@ void Server::run()
  */
 void Server::dataUnmarshall()
 {
-    unpackageBytesInBuf(&paddleState->paddleNum, 0, rcvBuf);
-    unpackageBytesInBuf(&paddleState->paddlePosX, 2, rcvBuf);
-    unpackageBytesInBuf(&paddleState->paddlePosY, 4, rcvBuf);
+    unpackageBytesInBuf(&rcvPaddle, 0, rcvBuf);
+
+    if (rcvPaddle == 0)
+    {
+        unpackageBytesInBuf(&lPaddleState->paddlePosX, 2, rcvBuf);
+        unpackageBytesInBuf(&lPaddleState->paddlePosY, 4, rcvBuf);
+    }
+    else
+    {
+        unpackageBytesInBuf(&rPaddleState->paddlePosX, 2, rcvBuf);
+        unpackageBytesInBuf(&rPaddleState->paddlePosY, 4, rcvBuf);
+    }
 }
 
 /*
@@ -108,15 +117,15 @@ void Server::dataMarshall()
  */
 void Server::updateGameStateFromPaddle()
 {
-    if (paddleState->paddleNum == 0)
+    if (rcvPaddle == 0)
     { // L paddle
-        gameState->lPaddlePosX = paddleState->paddlePosX;
-        gameState->lPaddlePosY = paddleState->paddlePosY;
+        gameState->lPaddlePosX = lPaddleState->paddlePosX;
+        gameState->lPaddlePosY = lPaddleState->paddlePosY;
     }
     else
     { // R paddle
-        gameState->rPaddlePosX = paddleState->paddlePosX;
-        gameState->rPaddlePosY = paddleState->paddlePosY;
+        gameState->rPaddlePosX = rPaddleState->paddlePosX;
+        gameState->rPaddlePosY = rPaddleState->paddlePosY;
     }
 }
 

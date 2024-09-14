@@ -15,9 +15,13 @@ add_executable(
     ../controller/arduino.cpp
     ../multiplayer/communication.cpp
     ../multiplayer/gameserver.cpp
+    ../multiplayer/client.cpp
+    ../multiplayer/server.cpp
     ../assets/paddle.cpp
     ../assets/ball.cpp
     ../assets/ballview.cpp
+    ../assets/paddleview.cpp
+    ../assets/paddlevirtual.cpp
 )
 find_path(RL_INCLUDE_DIR NAMES raylib.h PATHS /opt/homebrew/opt/raylib/include)
 include_directories(${RL_INCLUDE_DIR})
