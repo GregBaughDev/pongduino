@@ -1,4 +1,4 @@
-#include "gameArea.h"
+#include "gamearea.h"
 #include <iostream>
 #include <raylib.h>
 

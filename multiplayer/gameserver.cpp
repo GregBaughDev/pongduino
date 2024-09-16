@@ -1,5 +1,5 @@
 #include "gameserver.h"
-#include "../pong/gameArea.h"
+#include "../pong/gamearea.h"
 #include <iostream>
 #include <thread>
 

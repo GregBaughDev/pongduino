@@ -1,5 +1,5 @@
 #include "pong.h"
-#include "gameArea.h"
+#include "gamearea.h"
 #include <raylib.h>
 
 void Pong::setup()

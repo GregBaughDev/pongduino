@@ -1,5 +1,5 @@
 #include "ball.h"
-#include "../pong/gameArea.h"
+#include "../pong/gamearea.h"
 #include <unistd.h>
 
 void Ball::handleBall()

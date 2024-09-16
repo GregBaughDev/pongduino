@@ -8,7 +8,7 @@ add_executable(
     pong 
     main.cpp 
     pong.cpp 
-    gameArea.cpp 
+    gamearea.cpp 
     score.cpp 
     ../controller/keyboard.cpp 
     ../controller/serialRead.cpp

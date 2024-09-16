@@ -1,6 +1,6 @@
 #ifndef PONG_H
 #define PONG_H
-#include "gameArea.h"
+#include "gamearea.h"
 #include "../multiplayer/client.h"
 #include <string>
 #include <thread>

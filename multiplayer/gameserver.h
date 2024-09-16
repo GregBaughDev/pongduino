@@ -47,5 +47,4 @@ private:
 // update any initialisations with { } initialisation
 // replace new and delete with stack pointers
 // or do it all with shared pointers - come back to this
-// rename gameArea.h to gamearea.h
 // add documentation
