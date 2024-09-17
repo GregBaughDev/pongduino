@@ -17,9 +17,9 @@ public:
           rcvBuf(new char[rcvBufLen]),
           sendBufLen(sizeof(PongComm)),
           sendBuf(new char[sendBufLen]),
-          gameState(new PongComm({100, 200, 300, 400, 500, 600})),
-          lPaddleState(new PaddleComm({0, 0, 0})),
-          rPaddleState(new PaddleComm({0, 0, 0})),
+          gameState(PongComm({100, 200, 300, 400, 500, 600})),
+          lPaddleState(PaddleComm({0, 0, 0})),
+          rPaddleState(PaddleComm({0, 0, 0})),
           serverPort(port),
           rcvPaddle(0),
           Communication()
@@ -31,15 +31,12 @@ public:
     {
         delete[] rcvBuf;
         delete[] sendBuf;
-        delete gameState;
-        delete lPaddleState;
-        delete rPaddleState;
     };
 
 protected:
-    PongComm *gameState;
-    PaddleComm *lPaddleState;
-    PaddleComm *rPaddleState;
+    PongComm gameState;
+    PaddleComm lPaddleState;
+    PaddleComm rPaddleState;
     std::thread serverRunThread;
 
 private:

@@ -13,11 +13,11 @@ void GameServer::loop()
         checkAndPublishCollision();
         checkIsOut();
 
-        Server::gameState->ballPosX = ball.getCircle().x;
-        Server::gameState->ballPosY = ball.getCircle().y;
+        Server::gameState.ballPosX = ball.getCircle().x;
+        Server::gameState.ballPosY = ball.getCircle().y;
 
-        lPaddle.setRectangle(Server::gameState->lPaddlePosX, Server::gameState->lPaddlePosY);
-        rPaddle.setRectangle(Server::gameState->rPaddlePosX, Server::rPaddleState->paddlePosY);
+        lPaddle.setRectangle(Server::gameState.lPaddlePosX, Server::gameState.lPaddlePosY);
+        rPaddle.setRectangle(Server::gameState.rPaddlePosX, Server::rPaddleState.paddlePosY);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }

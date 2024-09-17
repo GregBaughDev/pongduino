@@ -31,18 +31,14 @@ class Communication
 {
 public:
     Communication()
-        : stringStream(new std::stringstream) {};
-    ~Communication()
-    {
-        delete stringStream;
-    }
+        : stringStream(std::stringstream()) {};
 
 protected:
     void packageBytesInBuf(int value, int posB1, char *sendBuf);
     void unpackageBytesInBuf(int *value, int posB1, const char *rcvBuf);
 
 private:
-    std::stringstream *stringStream;
+    std::stringstream stringStream;
 };
 
 #endif

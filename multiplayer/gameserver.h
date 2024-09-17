@@ -7,7 +7,12 @@
 
 /*
  * Upon instantiation it will start the server on a new thread and handle
- * communication with the game clients
+ * communication with the game clients.
+ *
+ * This class will be running it's own version of the game and
+ * will use the position of the paddles for the game play logic.
+ * It publishes out the game state to both game instances and receives
+ * the paddle positions of each game instance.
  */
 class GameServer : private Server
 {
@@ -33,18 +38,13 @@ private:
     PaddleVirtual rPaddle;
 };
 
-// GameServer plan USE THIS AS MAIN NOTES AREA!
-// will be running it's own version of the game without a gui
-// will use the position of the paddles for the game play
-// publish out the ball position in the existing struct
-// based on position from server
-
 #endif
 
 // Current state
-// The direction of data flows is super wacky
 // need to also do a health check to confirm server is running when starting a pong game
+// sort the weird constructors that have to be manually updated
 // update any initialisations with { } initialisation
-// replace new and delete with stack pointers
 // or do it all with shared pointers - come back to this
 // add documentation
+// test again with arduino
+// to all the write ups

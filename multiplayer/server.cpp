@@ -89,13 +89,13 @@ void Server::dataUnmarshall()
 
     if (rcvPaddle == 0)
     {
-        unpackageBytesInBuf(&lPaddleState->paddlePosX, 2, rcvBuf);
-        unpackageBytesInBuf(&lPaddleState->paddlePosY, 4, rcvBuf);
+        unpackageBytesInBuf(&lPaddleState.paddlePosX, 2, rcvBuf);
+        unpackageBytesInBuf(&lPaddleState.paddlePosY, 4, rcvBuf);
     }
     else
     {
-        unpackageBytesInBuf(&rPaddleState->paddlePosX, 2, rcvBuf);
-        unpackageBytesInBuf(&rPaddleState->paddlePosY, 4, rcvBuf);
+        unpackageBytesInBuf(&rPaddleState.paddlePosX, 2, rcvBuf);
+        unpackageBytesInBuf(&rPaddleState.paddlePosY, 4, rcvBuf);
     }
 }
 
@@ -104,12 +104,12 @@ void Server::dataUnmarshall()
  */
 void Server::dataMarshall()
 {
-    packageBytesInBuf(gameState->ballPosX, 0, sendBuf);
-    packageBytesInBuf(gameState->ballPosY, 2, sendBuf);
-    packageBytesInBuf(gameState->lPaddlePosX, 4, sendBuf);
-    packageBytesInBuf(gameState->lPaddlePosY, 6, sendBuf);
-    packageBytesInBuf(gameState->rPaddlePosX, 8, sendBuf);
-    packageBytesInBuf(gameState->rPaddlePosY, 10, sendBuf);
+    packageBytesInBuf(gameState.ballPosX, 0, sendBuf);
+    packageBytesInBuf(gameState.ballPosY, 2, sendBuf);
+    packageBytesInBuf(gameState.lPaddlePosX, 4, sendBuf);
+    packageBytesInBuf(gameState.lPaddlePosY, 6, sendBuf);
+    packageBytesInBuf(gameState.rPaddlePosX, 8, sendBuf);
+    packageBytesInBuf(gameState.rPaddlePosY, 10, sendBuf);
 }
 
 /*
@@ -119,13 +119,13 @@ void Server::updateGameStateFromPaddle()
 {
     if (rcvPaddle == 0)
     { // L paddle
-        gameState->lPaddlePosX = lPaddleState->paddlePosX;
-        gameState->lPaddlePosY = lPaddleState->paddlePosY;
+        gameState.lPaddlePosX = lPaddleState.paddlePosX;
+        gameState.lPaddlePosY = lPaddleState.paddlePosY;
     }
     else
     { // R paddle
-        gameState->rPaddlePosX = rPaddleState->paddlePosX;
-        gameState->rPaddlePosY = rPaddleState->paddlePosY;
+        gameState.rPaddlePosX = rPaddleState.paddlePosX;
+        gameState.rPaddlePosY = rPaddleState.paddlePosY;
     }
 }
 
@@ -137,7 +137,7 @@ void Server::send()
     dataMarshall();
     if (sendto(serverFd, sendBuf, sendBufLen, 0, (struct sockaddr *)&clientAddr, addrLen) < 0)
     {
-        std::cerr << "Error sending to client\n";
+        std::cerr << "Error sending to client -> " << strerror(errno) << "\n";
     }
 }
 
