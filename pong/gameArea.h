@@ -19,7 +19,7 @@ class GameArea
 public:
     GameArea(PlayerPaddle playerPaddle)
         : ball{BallView{}},
-          serialValue{(char *)malloc(1)},
+          serialValue{0},
           // thisPaddle{Paddle{new Keyboard{KEY_E, KEY_X}, 40}},
           thisPaddle{Paddle{new Keyboard{KEY_UP, KEY_DOWN}, width - 60}},
           otherPaddle{PaddleView{}},
@@ -38,7 +38,7 @@ public:
 private:
     void handlePaddles();
     BallView ball;
-    char *serialValue;
+    char serialValue;
     Paddle thisPaddle;
     PaddleView otherPaddle;
     Score score;

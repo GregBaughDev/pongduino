@@ -18,7 +18,7 @@ void GameArea::handlePaddles()
 
 char *GameArea::getSerialValuePtr()
 {
-    return serialValue;
+    return &serialValue;
 }
 
 Paddle *GameArea::getPaddle()
