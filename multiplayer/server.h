@@ -13,19 +13,19 @@ class Server : private Communication
 {
 public:
     Server(std::string port)
-        : rcvBufLen(sizeof(PaddleComm)),
-          rcvBuf(new char[rcvBufLen]),
-          sendBufLen(sizeof(PongComm)),
-          sendBuf(new char[sendBufLen]),
-          gameState(PongComm({100, 200, 300, 400, 500, 600})),
-          lPaddleState(PaddleComm({0, 0, 0})),
-          rPaddleState(PaddleComm({0, 0, 0})),
-          serverPort(port),
-          rcvPaddle(0),
-          Communication()
+        : rcvBufLen{sizeof(PaddleComm)},
+          rcvBuf{new char[rcvBufLen]},
+          sendBufLen{sizeof(PongComm)},
+          sendBuf{new char[sendBufLen]},
+          gameState{PongComm{100, 200, 300, 400, 500, 600}},
+          lPaddleState{PaddleComm{0, 0, 0}},
+          rPaddleState{PaddleComm{0, 0, 0}},
+          serverPort{port},
+          rcvPaddle{0},
+          Communication{}
     {
         initialise();
-        serverRunThread = std::thread(&Server::run, this);
+        serverRunThread = std::thread{&Server::run, this};
     };
     ~Server()
     {

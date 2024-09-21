@@ -6,8 +6,9 @@ class Arduino : public Controller
 {
 public:
     Arduino(const char upKey, const char downKey, char *serialValuePtr)
-        : upKey(upKey),
-          downKey(downKey), serialValue(serialValuePtr) {};
+        : upKey{upKey},
+          downKey{downKey},
+          serialValue{serialValuePtr} {};
     bool isDownKeyDown() override;
     bool isUpKeyDown() override;
 

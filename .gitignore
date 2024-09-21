@@ -1,7 +1,3 @@
 build
 .vscode
 .DS_Store
-serialRead
-serialRead.dSym
-client
-server

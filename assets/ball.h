@@ -6,11 +6,11 @@ class Ball
 {
 public:
     Ball(float x, float y)
-        : colour(RAYWHITE),
-          circle({x, y}),
-          speedY(2),
-          speedX(6),
-          isStop(false) {};
+        : colour{RAYWHITE},
+          circle{x, y},
+          speedY{2},
+          speedX{6},
+          isStop{false} {};
     void handleBall();
     Vector2 getCircle();
     static float getRadius();

@@ -8,10 +8,10 @@ class Paddle
 {
 public:
     Paddle(Controller *inputType, float xPos)
-        : paddleSpeed(25), // 15 keyboard
-          controller(inputType),
-          rectangle({xPos, 250, width, height}),
-          colour(RAYWHITE) {};
+        : paddleSpeed{25}, // 15 keyboard
+          controller{inputType},
+          rectangle{xPos, 250, width, height},
+          colour{RAYWHITE} {};
     void loop();
     Rectangle getRectangle();
     void setPaddle(int x, int y);

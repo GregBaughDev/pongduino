@@ -18,15 +18,15 @@ class GameArea
 {
 public:
     GameArea(PlayerPaddle playerPaddle)
-        : ball(BallView()),
-          serialValue((char *)malloc(1)),
-          // thisPaddle(Paddle(new Keyboard(KEY_E, KEY_X), 40)),
-          thisPaddle(Paddle(new Keyboard(KEY_UP, KEY_DOWN), width - 60)),
-          otherPaddle(PaddleView()),
-          //   l_paddle(Paddle(new Arduino('4', '3', serialValue), 40)),
-          //   r_paddle(Paddle(new Arduino('2', '1', serialValue), width - 60)),
-          score(Score()),
-          paddlePos(playerPaddle) {};
+        : ball{BallView{}},
+          serialValue{(char *)malloc(1)},
+          // thisPaddle{Paddle{new Keyboard{KEY_E, KEY_X}, 40}},
+          thisPaddle{Paddle{new Keyboard{KEY_UP, KEY_DOWN}, width - 60}},
+          otherPaddle{PaddleView{}},
+          //   l_paddle{Paddle{new Arduino{'4', '3', serialValue}, 40}},
+          //   r_paddle{Paddle{new Arduino{'2', '1', serialValue}, width - 60}},
+          score{Score{}},
+          paddlePos{playerPaddle} {};
     void loop();
     static const int height = 600;
     static const int width = 800;

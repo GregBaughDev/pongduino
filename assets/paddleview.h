@@ -7,8 +7,8 @@ class PaddleView
 {
 public:
     PaddleView()
-        : rectangle({40, 100, Paddle::getWidth(), Paddle::getHeight()}),
-          colour(RED) {};
+        : rectangle{40, 100, Paddle::getWidth(), Paddle::getHeight()},
+          colour{RED} {};
     void loop();
     void setRectangle(float newXPos, float newYPos);
 

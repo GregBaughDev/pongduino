@@ -11,7 +11,7 @@ class PaddleVirtual
 {
 public:
     PaddleVirtual()
-        : rectangle({0, 250, Paddle::getWidth(), Paddle::getHeight()}) {}; // TO DO Update this constructor pos
+        : rectangle{0, 250, Paddle::getWidth(), Paddle::getHeight()} {}; // TO DO Update this constructor pos
     void setRectangle(float newXPos, float newYPos);
     Rectangle getRectangle();
 

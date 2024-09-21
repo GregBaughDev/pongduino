@@ -9,7 +9,7 @@ class SerialRead
 {
 public:
     SerialRead(std::string port)
-        : serialPort(port)
+        : serialPort{port}
     {
         setup();
     };

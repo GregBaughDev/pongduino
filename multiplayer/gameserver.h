@@ -18,12 +18,12 @@ class GameServer : private Server
 {
 public:
     GameServer(std::string serverPort)
-        : ball(Ball(100, 200)),
-          lPaddle(PaddleVirtual()), // Do we need this?
-          rPaddle(PaddleVirtual()),
-          Server(serverPort)
+        : ball{Ball{100, 200}},
+          lPaddle{PaddleVirtual{}},
+          rPaddle{PaddleVirtual{}},
+          Server{serverPort}
     {
-        std::thread gameServerThread(&GameServer::loop, this);
+        std::thread gameServerThread{&GameServer::loop, this};
 
         serverRunThread.join();
         gameServerThread.join();
@@ -41,10 +41,8 @@ private:
 #endif
 
 // Current state
-// need to also do a health check to confirm server is running when starting a pong game
-// sort the weird constructors that have to be manually updated
-// update any initialisations with { } initialisation
-// or do it all with shared pointers - come back to this
-// add documentation
+// sort the weird constructors that have to be manually updated - do the instantiation with args?
+// do it all with shared pointers
+// make the build script awesome
+// add documentation and README update
 // test again with arduino
-// to all the write ups

@@ -6,7 +6,7 @@ class BallView
 {
 public:
     BallView()
-        : colour(RAYWHITE) {};
+        : colour{RAYWHITE} {};
     void loop();
     void setCircle(int newX, int newY);
 

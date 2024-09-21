@@ -11,11 +11,11 @@ public:
     Pong(
         std::string serverPort,
         PlayerPaddle playerPos)
-        : gameArea(GameArea(playerPos)),
-          playerPos(playerPos),
-          gameData(PongComm{0, 0, 0, 0}),
-          paddleData(PaddleComm{playerPos, 0, 0}),
-          client(Client(serverPort, &gameData, &paddleData))
+        : gameArea{GameArea{playerPos}},
+          playerPos{playerPos},
+          gameData{PongComm{0, 0, 0, 0}},
+          paddleData{PaddleComm{playerPos, 0, 0}},
+          client{Client{serverPort, &gameData, &paddleData}}
     {
         setup();
     };

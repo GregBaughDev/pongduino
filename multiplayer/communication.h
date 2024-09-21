@@ -31,7 +31,7 @@ class Communication
 {
 public:
     Communication()
-        : stringStream(std::stringstream()) {};
+        : stringStream{std::stringstream{}} {};
 
 protected:
     void packageBytesInBuf(int value, int posB1, char *sendBuf);

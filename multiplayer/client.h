@@ -7,14 +7,14 @@ class Client : private Communication
 {
 public:
     Client(std::string port, PongComm *gameData, PaddleComm *paddleData)
-        : serverPort(port),
-          rcvBufLen(sizeof(PongComm)),
-          rcvBuf(new char[rcvBufLen]),
-          sendBufLen(sizeof(PaddleComm)),
-          sendBuf(new char[sendBufLen]),
-          gameState(gameData),
-          paddleState(paddleData),
-          Communication()
+        : serverPort{port},
+          rcvBufLen{sizeof(PongComm)},
+          rcvBuf{new char[rcvBufLen]},
+          sendBufLen{sizeof(PaddleComm)},
+          sendBuf{new char[sendBufLen]},
+          gameState{gameData},
+          paddleState{paddleData},
+          Communication{}
     {
         initialise();
     };
@@ -24,7 +24,7 @@ public:
         delete[] rcvBuf;
         delete[] sendBuf;
     };
-    void send(); // TODO move this somewhere else, can it be protected?
+    void send();
 
 private:
     void initialise();
