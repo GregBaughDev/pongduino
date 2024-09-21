@@ -67,7 +67,7 @@ void Server::run()
     while (true)
     {
         addrLen = sizeof(clientAddr);
-        if (recvfrom(serverFd, rcvBuf, rcvBufLen, 0, (sockaddr *)&clientAddr, &addrLen) == -1)
+        if (recvfrom(serverFd, rcvBuf.get(), rcvBufLen, 0, (sockaddr *)&clientAddr, &addrLen) == -1)
         {
             std::cerr << "server: error receiving bytes " << strerror(errno) << "\n";
             close(serverFd);
@@ -135,7 +135,7 @@ void Server::updateGameStateFromPaddle()
 void Server::send()
 {
     dataMarshall();
-    if (sendto(serverFd, sendBuf, sendBufLen, 0, (struct sockaddr *)&clientAddr, addrLen) < 0)
+    if (sendto(serverFd, sendBuf.get(), sendBufLen, 0, (struct sockaddr *)&clientAddr, addrLen) < 0)
     {
         std::cerr << "Error sending to client -> " << strerror(errno) << "\n";
     }

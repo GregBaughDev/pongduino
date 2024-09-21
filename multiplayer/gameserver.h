@@ -41,8 +41,8 @@ private:
 #endif
 
 // Current state
+// WIP -> do it all with shared pointers (just Arduino to do)
 // sort the weird constructors that have to be manually updated - do the instantiation with args?
-// do it all with shared pointers
 // make the build script awesome
 // add documentation and README update
-// test again with arduino
+// test again with arduino - make sure it still works

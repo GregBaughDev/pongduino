@@ -4,6 +4,7 @@
 #include <string>
 #include <arpa/inet.h>
 #include <thread>
+#include <memory>
 
 /*
  * Upon instantiation it will start the server on a new thread. This is joined
@@ -14,9 +15,9 @@ class Server : private Communication
 public:
     Server(std::string port)
         : rcvBufLen{sizeof(PaddleComm)},
-          rcvBuf{new char[rcvBufLen]},
+          rcvBuf{std::make_shared<char[]>(char(rcvBufLen))},
           sendBufLen{sizeof(PongComm)},
-          sendBuf{new char[sendBufLen]},
+          sendBuf{std::make_shared<char[]>(char(sendBufLen))},
           gameState{PongComm{100, 200, 300, 400, 500, 600}},
           lPaddleState{PaddleComm{0, 0, 0}},
           rPaddleState{PaddleComm{0, 0, 0}},
@@ -29,8 +30,7 @@ public:
     };
     ~Server()
     {
-        delete[] rcvBuf;
-        delete[] sendBuf;
+        closeResources();
     };
 
 protected:
@@ -51,9 +51,9 @@ private:
     int serverFd;
     std::string serverPort;
     int rcvBufLen;
-    char *rcvBuf; // the server receives paddle data (PaddleComm)
+    std::shared_ptr<char[]> rcvBuf; // the server receives paddle data (PaddleComm)
     int sendBufLen;
-    char *sendBuf; // the server sends the whole game state (PongComm)
+    std::shared_ptr<char[]> sendBuf; // the server sends the whole game state (PongComm)
     sockaddr_storage clientAddr;
     socklen_t addrLen;
 };

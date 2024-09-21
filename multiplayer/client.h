@@ -2,16 +2,20 @@
 #define CLIENT_H
 #include "communication.h"
 #include <string>
+#include <memory>
 
 class Client : private Communication
 {
 public:
-    Client(std::string port, PongComm *gameData, PaddleComm *paddleData)
+    Client(
+        std::string port,
+        std::shared_ptr<PongComm> gameData,
+        std::shared_ptr<PaddleComm> paddleData)
         : serverPort{port},
           rcvBufLen{sizeof(PongComm)},
-          rcvBuf{new char[rcvBufLen]},
+          rcvBuf{std::make_shared<char[]>(char(rcvBufLen))},
           sendBufLen{sizeof(PaddleComm)},
-          sendBuf{new char[sendBufLen]},
+          sendBuf{std::make_shared<char[]>(char(sendBufLen))},
           gameState{gameData},
           paddleState{paddleData},
           Communication{}
@@ -21,8 +25,6 @@ public:
     ~Client()
     {
         closeResources();
-        delete[] rcvBuf;
-        delete[] sendBuf;
     };
     void send();
 
@@ -36,11 +38,11 @@ private:
     struct addrinfo *serverAddress;
     int serverFd;
     int rcvBufLen; // this will be the whole struct
-    char *rcvBuf;
+    std::shared_ptr<char[]> rcvBuf;
     int sendBufLen;
-    char *sendBuf; // this will be the paddle data
-    PongComm *gameState;
-    PaddleComm *paddleState;
+    std::shared_ptr<char[]> sendBuf;
+    std::shared_ptr<PongComm> gameState;
+    std::shared_ptr<PaddleComm> paddleState;
 };
 
 #endif

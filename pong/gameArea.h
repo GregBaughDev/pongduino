@@ -23,8 +23,8 @@ public:
           // thisPaddle{Paddle{new Keyboard{KEY_E, KEY_X}, 40}},
           thisPaddle{Paddle{new Keyboard{KEY_UP, KEY_DOWN}, width - 60}},
           otherPaddle{PaddleView{}},
-          //   l_paddle{Paddle{new Arduino{'4', '3', serialValue}, 40}},
-          //   r_paddle{Paddle{new Arduino{'2', '1', serialValue}, width - 60}},
+          //   l_paddle{Paddle{new Arduino{'4', '3', &serialValue}, 40}},
+          //   r_paddle{Paddle{new Arduino{'2', '1', &serialValue}, width - 60}},
           score{Score{}},
           paddlePos{playerPaddle} {};
     void loop();

@@ -48,7 +48,7 @@ void Client::send()
     dataMarshall();
 
     int bytesSent;
-    if ((bytesSent = sendto(serverFd, sendBuf, sendBufLen, 0, serverAddress->ai_addr, serverAddress->ai_addrlen)) == -1)
+    if ((bytesSent = sendto(serverFd, sendBuf.get(), sendBufLen, 0, serverAddress->ai_addr, serverAddress->ai_addrlen)) == -1)
     {
         std::cerr << "client: failed to send. errno -> " << strerror(errno) << "\n";
         exit(2);
@@ -62,7 +62,7 @@ void Client::send()
  */
 void Client::receive()
 {
-    if (recvfrom(serverFd, rcvBuf, rcvBufLen, 0, nullptr, nullptr) == -1)
+    if (recvfrom(serverFd, rcvBuf.get(), rcvBufLen, 0, nullptr, nullptr) == -1)
     {
         std::cerr << "client: error receiving bytes " << strerror(errno) << "\n";
         close(serverFd);

@@ -4,6 +4,7 @@
 #include "../multiplayer/client.h"
 #include <string>
 #include <thread>
+#include <memory>
 
 class Pong
 {
@@ -13,9 +14,9 @@ public:
         PlayerPaddle playerPos)
         : gameArea{GameArea{playerPos}},
           playerPos{playerPos},
-          gameData{PongComm{0, 0, 0, 0}},
-          paddleData{PaddleComm{playerPos, 0, 0}},
-          client{Client{serverPort, &gameData, &paddleData}}
+          gameData{std::make_shared<PongComm>(PongComm{0, 0, 0, 0})},
+          paddleData{std::make_shared<PaddleComm>(PaddleComm{playerPos, 0, 0})},
+          client{Client{serverPort, gameData, paddleData}}
     {
         setup();
     };
@@ -28,8 +29,8 @@ private:
     void receiveGameData();
     PlayerPaddle playerPos;
     GameArea gameArea;
-    PongComm gameData;
-    PaddleComm paddleData;
+    std::shared_ptr<PongComm> gameData;
+    std::shared_ptr<PaddleComm> paddleData;
     Client client;
 };
 

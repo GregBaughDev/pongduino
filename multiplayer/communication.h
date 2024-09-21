@@ -34,8 +34,8 @@ public:
         : stringStream{std::stringstream{}} {};
 
 protected:
-    void packageBytesInBuf(int value, int posB1, char *sendBuf);
-    void unpackageBytesInBuf(int *value, int posB1, const char *rcvBuf);
+    void packageBytesInBuf(int value, int posB1, std::shared_ptr<char[]> sendBuf);
+    void unpackageBytesInBuf(int *value, int posB1, const std::shared_ptr<char[]> rcvBuf);
 
 private:
     std::stringstream stringStream;

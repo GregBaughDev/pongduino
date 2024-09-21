@@ -34,19 +34,19 @@ char *Pong::getSerialPtr()
 
 void Pong::updatePaddleData()
 {
-    paddleData.paddlePosX = gameArea.getPaddle()->getRectangle().x;
-    paddleData.paddlePosY = gameArea.getPaddle()->getRectangle().y;
+    paddleData->paddlePosX = gameArea.getPaddle()->getRectangle().x;
+    paddleData->paddlePosY = gameArea.getPaddle()->getRectangle().y;
 }
 
 void Pong::receiveGameData()
 {
     if (playerPos == L)
     {
-        gameArea.setOtherPaddle(gameData.rPaddlePosX, gameData.rPaddlePosY);
+        gameArea.setOtherPaddle(gameData->rPaddlePosX, gameData->rPaddlePosY);
     }
     else
     {
-        gameArea.setOtherPaddle(gameData.lPaddlePosX, gameData.lPaddlePosY);
+        gameArea.setOtherPaddle(gameData->lPaddlePosX, gameData->lPaddlePosY);
     }
-    gameArea.setBallView(gameData.ballPosX, gameData.ballPosY);
+    gameArea.setBallView(gameData->ballPosX, gameData->ballPosY);
 }
