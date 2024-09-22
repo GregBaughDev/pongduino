@@ -9,13 +9,13 @@ class Client : private Communication
 public:
     Client(
         std::string port,
-        std::shared_ptr<PongComm> gameData,
-        std::shared_ptr<PaddleComm> paddleData)
+        PongComm *gameData,
+        PaddleComm *paddleData)
         : serverPort{port},
           rcvBufLen{sizeof(PongComm)},
-          rcvBuf{std::make_shared<char[]>(char(rcvBufLen))},
+          rcvBuf{std::make_unique<char[]>(char(rcvBufLen))},
           sendBufLen{sizeof(PaddleComm)},
-          sendBuf{std::make_shared<char[]>(char(sendBufLen))},
+          sendBuf{std::make_unique<char[]>(char(sendBufLen))},
           gameState{gameData},
           paddleState{paddleData},
           Communication{}
@@ -38,11 +38,11 @@ private:
     struct addrinfo *serverAddress;
     int serverFd;
     int rcvBufLen; // this will be the whole struct
-    std::shared_ptr<char[]> rcvBuf;
+    std::unique_ptr<char[]> rcvBuf;
     int sendBufLen;
-    std::shared_ptr<char[]> sendBuf;
-    std::shared_ptr<PongComm> gameState;
-    std::shared_ptr<PaddleComm> paddleState;
+    std::unique_ptr<char[]> sendBuf;
+    PongComm *gameState;
+    PaddleComm *paddleState;
 };
 
 #endif

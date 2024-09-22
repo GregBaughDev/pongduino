@@ -15,9 +15,9 @@ class Server : private Communication
 public:
     Server(std::string port)
         : rcvBufLen{sizeof(PaddleComm)},
-          rcvBuf{std::make_shared<char[]>(char(rcvBufLen))},
+          rcvBuf{std::make_unique<char[]>(char(rcvBufLen))},
           sendBufLen{sizeof(PongComm)},
-          sendBuf{std::make_shared<char[]>(char(sendBufLen))},
+          sendBuf{std::make_unique<char[]>(char(sendBufLen))},
           gameState{PongComm{100, 200, 300, 400, 500, 600}},
           lPaddleState{PaddleComm{0, 0, 0}},
           rPaddleState{PaddleComm{0, 0, 0}},
@@ -51,9 +51,9 @@ private:
     int serverFd;
     std::string serverPort;
     int rcvBufLen;
-    std::shared_ptr<char[]> rcvBuf; // the server receives paddle data (PaddleComm)
+    std::unique_ptr<char[]> rcvBuf; // the server receives paddle data (PaddleComm)
     int sendBufLen;
-    std::shared_ptr<char[]> sendBuf; // the server sends the whole game state (PongComm)
+    std::unique_ptr<char[]> sendBuf; // the server sends the whole game state (PongComm)
     sockaddr_storage clientAddr;
     socklen_t addrLen;
 };

@@ -85,17 +85,17 @@ void Server::run()
  */
 void Server::dataUnmarshall()
 {
-    unpackageBytesInBuf(&rcvPaddle, 0, rcvBuf);
+    unpackageBytesInBuf(&rcvPaddle, 0, rcvBuf.get());
 
     if (rcvPaddle == 0)
     {
-        unpackageBytesInBuf(&lPaddleState.paddlePosX, 2, rcvBuf);
-        unpackageBytesInBuf(&lPaddleState.paddlePosY, 4, rcvBuf);
+        unpackageBytesInBuf(&lPaddleState.paddlePosX, 2, rcvBuf.get());
+        unpackageBytesInBuf(&lPaddleState.paddlePosY, 4, rcvBuf.get());
     }
     else
     {
-        unpackageBytesInBuf(&rPaddleState.paddlePosX, 2, rcvBuf);
-        unpackageBytesInBuf(&rPaddleState.paddlePosY, 4, rcvBuf);
+        unpackageBytesInBuf(&rPaddleState.paddlePosX, 2, rcvBuf.get());
+        unpackageBytesInBuf(&rPaddleState.paddlePosY, 4, rcvBuf.get());
     }
 }
 
@@ -104,12 +104,12 @@ void Server::dataUnmarshall()
  */
 void Server::dataMarshall()
 {
-    packageBytesInBuf(gameState.ballPosX, 0, sendBuf);
-    packageBytesInBuf(gameState.ballPosY, 2, sendBuf);
-    packageBytesInBuf(gameState.lPaddlePosX, 4, sendBuf);
-    packageBytesInBuf(gameState.lPaddlePosY, 6, sendBuf);
-    packageBytesInBuf(gameState.rPaddlePosX, 8, sendBuf);
-    packageBytesInBuf(gameState.rPaddlePosY, 10, sendBuf);
+    packageBytesInBuf(gameState.ballPosX, 0, sendBuf.get());
+    packageBytesInBuf(gameState.ballPosY, 2, sendBuf.get());
+    packageBytesInBuf(gameState.lPaddlePosX, 4, sendBuf.get());
+    packageBytesInBuf(gameState.lPaddlePosY, 6, sendBuf.get());
+    packageBytesInBuf(gameState.rPaddlePosX, 8, sendBuf.get());
+    packageBytesInBuf(gameState.rPaddlePosY, 10, sendBuf.get());
 }
 
 /*

@@ -8,9 +8,9 @@
  *
  * @param *value pointer to the value which the result will be set to
  * @param posB1 the position of the required value to be unpacked in the buffer
- * @param const std::shared_ptr<char[]> rcvBuf pointer to the character buffer the values should be unpackaged from
+ * @param rcvBuf pointer to the character buffer the values should be unpackaged from
  */
-void Communication::unpackageBytesInBuf(int *value, int posB1, const std::shared_ptr<char[]> rcvBuf)
+void Communication::unpackageBytesInBuf(int *value, int posB1, const char *rcvBuf)
 {
     // TODO - can we reuse bitset classes save instantiating each time?
     std::bitset firstPos = std::bitset<8>(rcvBuf[posB1]);
@@ -25,9 +25,9 @@ void Communication::unpackageBytesInBuf(int *value, int posB1, const std::shared
  *
  * @param value the int value to be converted into bytes
  * @param posB1 the position in the buffer where the two bytes should be inserted
- * @param std::shared_ptr<char[]> sendBuf pointer to the char buffer which is going to be sent to the client/server
+ * @param sendBuf pointer to the char buffer which is going to be sent to the client/server
  */
-void Communication::packageBytesInBuf(int value, int posB1, std::shared_ptr<char[]> sendBuf)
+void Communication::packageBytesInBuf(int value, int posB1, char *sendBuf)
 {
     std::bitset valueToBitset = std::bitset<16>(value);
 

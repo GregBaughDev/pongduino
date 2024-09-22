@@ -77,12 +77,12 @@ void Client::receive()
  */
 void Client::dataUnmarshall()
 {
-    unpackageBytesInBuf(&gameState->ballPosX, 0, rcvBuf);
-    unpackageBytesInBuf(&gameState->ballPosY, 2, rcvBuf);
-    unpackageBytesInBuf(&gameState->lPaddlePosX, 4, rcvBuf);
-    unpackageBytesInBuf(&gameState->lPaddlePosY, 6, rcvBuf);
-    unpackageBytesInBuf(&gameState->rPaddlePosX, 8, rcvBuf);
-    unpackageBytesInBuf(&gameState->rPaddlePosY, 10, rcvBuf);
+    unpackageBytesInBuf(&gameState->ballPosX, 0, rcvBuf.get());
+    unpackageBytesInBuf(&gameState->ballPosY, 2, rcvBuf.get());
+    unpackageBytesInBuf(&gameState->lPaddlePosX, 4, rcvBuf.get());
+    unpackageBytesInBuf(&gameState->lPaddlePosY, 6, rcvBuf.get());
+    unpackageBytesInBuf(&gameState->rPaddlePosX, 8, rcvBuf.get());
+    unpackageBytesInBuf(&gameState->rPaddlePosY, 10, rcvBuf.get());
 }
 
 /*
@@ -90,9 +90,9 @@ void Client::dataUnmarshall()
  */
 void Client::dataMarshall()
 {
-    packageBytesInBuf(paddleState->paddleNum, 0, sendBuf);
-    packageBytesInBuf(paddleState->paddlePosX, 2, sendBuf);
-    packageBytesInBuf(paddleState->paddlePosY, 4, sendBuf);
+    packageBytesInBuf(paddleState->paddleNum, 0, sendBuf.get());
+    packageBytesInBuf(paddleState->paddlePosX, 2, sendBuf.get());
+    packageBytesInBuf(paddleState->paddlePosY, 4, sendBuf.get());
 }
 
 /*
