@@ -4,62 +4,43 @@
 #include <sstream>
 #include <array>
 
+/*
+ * This struct holds the game data (sent from the server)
+ */
 typedef struct
 {
     int ballPosX;
     int ballPosY;
+    int lPaddlePosX;
+    int lPaddlePosY;
+    int rPaddlePosX;
+    int rPaddlePosY;
+} PongComm;
+
+/*
+ * This struct holds the client paddle data and which game instance is sending it (sent from client)
+ */
+typedef struct
+{
+    int paddleNum;
     int paddlePosX;
     int paddlePosY;
-} PongComm;
+} PaddleComm;
 
 class Communication
 {
 public:
-    Communication(
-        std::string thisPort,
-        std::string theirPort,
-        PongComm *thisData,
-        PongComm *thatData)
-        : rcvPort(thisPort),
-          sndPort(theirPort),
-          stringStream(new std::stringstream),
-          rcvComm(thatData),
-          sndComm(thisData),
-          sendBuf(new char[maxBufLen]),
-          rcvBuf(new char[maxBufLen])
-    {
-        initialiseServer();
-        initialiseClient();
-    };
-    ~Communication()
-    {
-        closeResources();
-        delete stringStream;
-        delete[] sendBuf;
-        delete[] rcvBuf;
-    };
-    void startServer();
-    void clientSend();
-    const static int maxBufLen = 8;
+    Communication()
+        : stringStream{std::stringstream{}} {};
+
+protected:
+    void packageBytesInBuf(int value, int posB1, char *sendBuf);
+    void unpackageBytesInBuf(int *value, int posB1, const char *rcvBuf);
 
 private:
-    void initialiseServer();
-    void initialiseClient();
-    void closeResources();
-    void dataMarshall();
-    void dataUnmarshall();
-    void packageBytesInBuf(int value, int posB1);
-    void unpackageBytesInBuf(int *value, int posB1);
-    std::string rcvPort;
-    std::string sndPort;
-    int rcvFd;
-    int sndFd;
-    char *rcvBuf;
-    char *sendBuf;
-    struct addrinfo *serverAddress;
-    std::stringstream *stringStream;
-    PongComm *rcvComm;
-    PongComm *sndComm;
+    std::stringstream stringStream;
+    virtual void dataUnmarshall() = 0;
+    virtual void dataMarshall() = 0;
 };
 
 #endif

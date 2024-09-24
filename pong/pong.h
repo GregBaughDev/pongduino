@@ -1,42 +1,36 @@
 #ifndef PONG_H
 #define PONG_H
-#include "gameArea.h"
-#include "../multiplayer/communication.h"
+#include "gamearea.h"
+#include "../multiplayer/client.h"
 #include <string>
 #include <thread>
+#include <memory>
 
 class Pong
 {
 public:
-    Pong(
-        std::string thisPort,
-        std::string theirPort,
-        PlayerPaddle playerPos)
-        : gameArea(playerPos),
-          thisData(new PongComm{0, 0, 0, 0}),
-          thatData(new PongComm{0, 0, 0, 0}),
-          communication(new Communication(thisPort, theirPort, thisData, thatData))
+    Pong(std::string serverPort,
+         PlayerPaddle playerPos,
+         Paddle playerPaddle)
+        : gameArea{GameArea{playerPaddle}},
+          playerPos{playerPos},
+          gameData{std::make_unique<PongComm>(PongComm{0, 0, 0, 0})},
+          paddleData{std::make_unique<PaddleComm>(PaddleComm{playerPos, 0, 0})},
+          client{Client{serverPort, gameData.get(), paddleData.get()}}
     {
-        std::thread server(&Communication::startServer, communication);
-        server.detach();
+        setup();
     };
-    ~Pong()
-    {
-        delete thisData;
-        delete thatData;
-        delete communication;
-    }
-    void setup();
     void loop();
-    char *getSerialPtr();
 
 private:
-    void updateCommData();
-    void publishRcvData();
+    void setup();
+    void updatePaddleData();
+    void receiveGameData();
+    PlayerPaddle playerPos;
     GameArea gameArea;
-    PongComm *thisData;
-    PongComm *thatData;
-    Communication *communication;
+    std::unique_ptr<PongComm> gameData;
+    std::unique_ptr<PaddleComm> paddleData;
+    Client client;
 };
 
 #endif

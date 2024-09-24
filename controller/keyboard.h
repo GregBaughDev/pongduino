@@ -6,8 +6,8 @@ class Keyboard : public Controller
 {
 public:
     Keyboard(const int upKey, const int downKey)
-        : upKey(upKey),
-          downKey(downKey) {};
+        : upKey{upKey},
+          downKey{downKey} {};
     bool isDownKeyDown() override;
     bool isUpKeyDown() override;
 

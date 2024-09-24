@@ -1,60 +1,37 @@
 #ifndef GAME_AREA_H
 #define GAME_AREA_H
-#include "../assets/paddle.h"
-#include "../assets/ball.h"
 #include "score.h"
+#include "../assets/paddle.h"
+#include "../assets/paddleview.h"
+#include "../assets/ballview.h"
 #include "../controller/arduino.h"
 #include "../controller/keyboard.h"
 #include "raylib.h"
 #include <cstdlib>
 
-enum PlayerPaddle
-{
-    L,
-    R
-};
 class GameArea
 {
 public:
-    GameArea(PlayerPaddle playerPaddle)
-        : ball(Ball(width / 2.0, height / 2.0)),
-          serialValue((char *)malloc(1)),
-          // to do - move the below to Pong
-          lPaddle(Paddle(new Keyboard(KEY_E, KEY_X), 40)),
-          rPaddle(Paddle(new Keyboard(KEY_UP, KEY_DOWN), width - 60)),
-          //   l_paddle(Paddle(new Arduino('4', '3', serialValue), 40)),
-          //   r_paddle(Paddle(new Arduino('2', '1', serialValue), width - 60)),
-          score(Score()),
-          paddlePos(playerPaddle)
-    {
-        if (playerPaddle == L)
-        {
-            rPaddle.setIsActive(false);
-            lPaddle.setIsActive(true);
-        }
-        else
-        {
-            lPaddle.setIsActive(false);
-            rPaddle.setIsActive(true);
-        }
-    };
+    GameArea(Paddle playerPaddle)
+        : thisPaddle(playerPaddle),
+          ball{BallView{}},
+          serialValue{0},
+          otherPaddle{PaddleView{}},
+          score{Score{}} {};
     void loop();
     static const int height = 600;
     static const int width = 800;
-    char *getSerialValuePtr();
     Paddle *getPaddle();
-    Paddle *getOtherPaddle();
+    void setOtherPaddle(float newXPos, float newYPos);
+    void setBallView(int newX, int newY);
 
 private:
     void handlePaddles();
-    void checkAndPublishCollision();
-    void checkIsOut();
-    Ball ball;
-    char *serialValue;
-    Paddle lPaddle;
-    Paddle rPaddle;
+    BallView ball;
+    char serialValue;
+    Paddle thisPaddle;
+    PaddleView otherPaddle;
     Score score;
-    PlayerPaddle paddlePos;
 };
 
 #endif

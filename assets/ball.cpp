@@ -1,5 +1,5 @@
 #include "ball.h"
-#include "../pong/gameArea.h"
+#include "../pong/gamearea.h"
 #include <unistd.h>
 
 void Ball::handleBall()
@@ -16,7 +16,6 @@ void Ball::handleBall()
     {
         movementManager();
     }
-    DrawCircle(circle.x, circle.y, radius, colour);
 }
 
 Vector2 Ball::getCircle()

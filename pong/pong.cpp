@@ -1,5 +1,5 @@
 #include "pong.h"
-#include "gameArea.h"
+#include "gamearea.h"
 #include <raylib.h>
 
 void Pong::setup()
@@ -17,9 +17,9 @@ void Pong::loop()
         ClearBackground(BLACK);
 
         gameArea.loop();
-        updateCommData();
-        communication->clientSend();
-        publishRcvData();
+        updatePaddleData();
+        client.send();
+        receiveGameData();
 
         EndDrawing();
     }
@@ -27,28 +27,21 @@ void Pong::loop()
     CloseWindow();
 }
 
-char *Pong::getSerialPtr()
+void Pong::updatePaddleData()
 {
-    return gameArea.getSerialValuePtr();
+    paddleData->paddlePosX = gameArea.getPaddle()->getRectangle().x;
+    paddleData->paddlePosY = gameArea.getPaddle()->getRectangle().y;
 }
 
-void Pong::updateCommData()
+void Pong::receiveGameData()
 {
-    thisData->paddlePosX = gameArea.getPaddle()->getRectangle().x;
-    thisData->paddlePosY = gameArea.getPaddle()->getRectangle().y;
+    if (playerPos == L)
+    {
+        gameArea.setOtherPaddle(gameData->rPaddlePosX, gameData->rPaddlePosY);
+    }
+    else
+    {
+        gameArea.setOtherPaddle(gameData->lPaddlePosX, gameData->lPaddlePosY);
+    }
+    gameArea.setBallView(gameData->ballPosX, gameData->ballPosY);
 }
-
-void Pong::publishRcvData()
-{
-    // current state - now need to
-    // stop the servers more gracefully
-    // do the ball server
-    gameArea.getOtherPaddle()->setPaddle(thatData->paddlePosX, thatData->paddlePosY);
-}
-
-// ball server plan
-// will be running it's own version of the game without a gui
-// will use the position of the paddles for the game play
-// publish out the ball position in the existing struct
-// will create a ballViewer class that will just display the ball
-// based on position from server
