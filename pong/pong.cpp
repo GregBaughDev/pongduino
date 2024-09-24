@@ -27,11 +27,6 @@ void Pong::loop()
     CloseWindow();
 }
 
-char *Pong::getSerialPtr()
-{
-    return gameArea.getSerialValuePtr();
-}
-
 void Pong::updatePaddleData()
 {
     paddleData->paddlePosX = gameArea.getPaddle()->getRectangle().x;

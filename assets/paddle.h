@@ -4,10 +4,16 @@
 #include "ball.h"
 #include "raylib.h"
 
+enum PlayerPaddle
+{
+    L,
+    R
+};
 class Paddle
 {
 public:
-    Paddle(Controller *inputType, float xPos)
+    Paddle(Controller *inputType,
+           float xPos)
         : paddleSpeed{25}, // 15 keyboard
           controller{inputType},
           rectangle{xPos, 250, width, height},
@@ -18,6 +24,7 @@ public:
     void setIsActive(bool isActive);
     static float getHeight();
     static float getWidth();
+    static std::unique_ptr<Paddle> paddleFactory(Controller *controller, char playerPos);
 
 private:
     void handleMovement();

@@ -44,8 +44,8 @@ private:
     void run();
     void initialise();
     void closeResources();
-    void dataUnmarshall();
-    void dataMarshall();
+    void dataUnmarshall() override;
+    void dataMarshall() override;
     void updateGameStateFromPaddle();
     int rcvPaddle;
     int serverFd;

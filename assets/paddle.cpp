@@ -1,6 +1,7 @@
 #include "paddle.h"
 #include "../pong/gamearea.h"
 #include <raylib.h>
+#include <memory>
 
 void Paddle::loop()
 {
@@ -44,4 +45,9 @@ float Paddle::getHeight()
 float Paddle::getWidth()
 {
     return width;
+}
+
+std::unique_ptr<Paddle> Paddle::paddleFactory(Controller *controller, char playerPos)
+{
+    return std::make_unique<Paddle>(controller, playerPos == '1' ? 40 : GameArea::width - 60);
 }

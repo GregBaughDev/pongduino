@@ -13,17 +13,34 @@ add_executable(
     ../controller/keyboard.cpp 
     ../controller/serialRead.cpp
     ../controller/arduino.cpp
+    ../controller/controller.cpp
     ../multiplayer/communication.cpp
-    ../multiplayer/gameserver.cpp
     ../multiplayer/client.cpp
-    ../multiplayer/server.cpp
-    ../assets/paddle.cpp
     ../assets/ball.cpp
+    ../assets/paddle.cpp
     ../assets/ballview.cpp
     ../assets/paddleview.cpp
-    ../assets/paddlevirtual.cpp
 )
+
+add_executable(
+    pong-server
+    serverCreate.cpp
+    gamearea.cpp 
+    score.cpp
+    ../multiplayer/gameserver.cpp
+    ../multiplayer/server.cpp
+    ../multiplayer/communication.cpp
+    ../assets/ball.cpp
+    ../assets/paddlevirtual.cpp
+    ../assets/paddleview.cpp
+    ../assets/paddle.cpp
+    ../assets/ballview.cpp
+)
+
 find_path(RL_INCLUDE_DIR NAMES raylib.h PATHS /opt/homebrew/opt/raylib/include)
 include_directories(${RL_INCLUDE_DIR})
 find_library(RL_LIBRARY NAMES raylib PATHS /opt/homebrew/opt/raylib/lib)
 target_link_libraries(pong ${RL_LIBRARY})
+target_link_libraries(pong-server ${RL_LIBRARY})
+add_custom_command(TARGET pong POST_BUILD COMMAND cp pong pong-p1 && mv pong pong-p2)
+add_custom_command(TARGET pong-server POST_BUILD COMMAND bash -c echo GREG)

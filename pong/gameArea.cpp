@@ -16,11 +16,6 @@ void GameArea::handlePaddles()
     otherPaddle.loop();
 }
 
-char *GameArea::getSerialValuePtr()
-{
-    return &serialValue;
-}
-
 Paddle *GameArea::getPaddle()
 {
     return &thisPaddle;

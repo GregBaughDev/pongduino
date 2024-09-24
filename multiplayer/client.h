@@ -31,13 +31,13 @@ public:
 private:
     void initialise();
     void receive();
-    void dataUnmarshall(); // TODO add this and below to interfaces
-    void dataMarshall();
+    void dataUnmarshall() override;
+    void dataMarshall() override;
     void closeResources();
     std::string serverPort;
     struct addrinfo *serverAddress;
     int serverFd;
-    int rcvBufLen; // this will be the whole struct
+    int rcvBufLen;
     std::unique_ptr<char[]> rcvBuf;
     int sendBufLen;
     std::unique_ptr<char[]> sendBuf;

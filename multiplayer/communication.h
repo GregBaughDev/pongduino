@@ -39,6 +39,8 @@ protected:
 
 private:
     std::stringstream stringStream;
+    virtual void dataUnmarshall() = 0;
+    virtual void dataMarshall() = 0;
 };
 
 #endif

@@ -9,10 +9,10 @@
 class Pong
 {
 public:
-    Pong(
-        std::string serverPort,
-        PlayerPaddle playerPos)
-        : gameArea{GameArea{playerPos}},
+    Pong(std::string serverPort,
+         PlayerPaddle playerPos,
+         Paddle playerPaddle)
+        : gameArea{GameArea{playerPaddle}},
           playerPos{playerPos},
           gameData{std::make_unique<PongComm>(PongComm{0, 0, 0, 0})},
           paddleData{std::make_unique<PaddleComm>(PaddleComm{playerPos, 0, 0})},
@@ -21,7 +21,6 @@ public:
         setup();
     };
     void loop();
-    char *getSerialPtr();
 
 private:
     void setup();

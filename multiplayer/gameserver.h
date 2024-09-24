@@ -1,8 +1,8 @@
 #ifndef GAMESERVER_H
 #define GAMESERVER_H
+#include "server.h"
 #include "../assets/ball.h"
 #include "../assets/paddlevirtual.h"
-#include "server.h"
 #include <string>
 
 /*
@@ -41,7 +41,9 @@ private:
 #endif
 
 // Current state
-// sort the weird constructors that have to be manually updated - do the instantiation with args?
-// make the build script awesome
+// WIP - sort the build error re: deleteing virtual class
+// automatically find the arduino fd
 // add documentation and README update
 // test again with arduino - make sure it still works
+// try test again over localhost
+// score class
