@@ -51,16 +51,8 @@ void Communication::packageBytesInBuf(int value, int posB1, char *sendBuf)
 
     // convert it to byte
     stringStream << std::hex << b1;
-
-    std::string b1HexString = stringStream.str();
-    unsigned char b1Char = static_cast<unsigned char>(std::strtol(b1HexString.c_str(), nullptr, 16));
-
     stringStream.str("");
-
     stringStream << std::hex << b2;
-    std::string b2HexString = stringStream.str();
-    unsigned char b2Char = static_cast<unsigned char>(std::strtol(b2HexString.c_str(), nullptr, 16));
-
     stringStream.str("");
 
     sendBuf[posB1] = b1;

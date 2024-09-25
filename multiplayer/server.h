@@ -18,7 +18,7 @@ public:
           rcvBuf{std::make_unique<char[]>(char(rcvBufLen))},
           sendBufLen{sizeof(PongComm)},
           sendBuf{std::make_unique<char[]>(char(sendBufLen))},
-          gameState{PongComm{100, 200, 300, 400, 500, 600}},
+          gameState{PongComm{0, 0, 0, 0, 0, 0}},
           lPaddleState{PaddleComm{0, 0, 0}},
           rPaddleState{PaddleComm{0, 0, 0}},
           serverPort{port},

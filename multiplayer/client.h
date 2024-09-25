@@ -11,14 +11,14 @@ public:
         std::string port,
         PongComm *gameData,
         PaddleComm *paddleData)
-        : serverPort{port},
+        : Communication{},
+          serverPort{port},
           rcvBufLen{sizeof(PongComm)},
           rcvBuf{std::make_unique<char[]>(char(rcvBufLen))},
           sendBufLen{sizeof(PaddleComm)},
           sendBuf{std::make_unique<char[]>(char(sendBufLen))},
           gameState{gameData},
-          paddleState{paddleData},
-          Communication{}
+          paddleState{paddleData}
     {
         initialise();
     };

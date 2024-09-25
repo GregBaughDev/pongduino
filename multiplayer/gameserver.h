@@ -41,7 +41,7 @@ private:
 #endif
 
 // Current state
-// WIP - sort the build error re: deleteing virtual class
+// WIP - sort all warnings in the build
 // automatically find the arduino fd
 // add documentation and README update
 // test again with arduino - make sure it still works

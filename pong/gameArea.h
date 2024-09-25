@@ -13,9 +13,8 @@ class GameArea
 {
 public:
     GameArea(Paddle playerPaddle)
-        : thisPaddle(playerPaddle),
-          ball{BallView{}},
-          serialValue{0},
+        : ball{BallView{}},
+          thisPaddle(playerPaddle),
           otherPaddle{PaddleView{}},
           score{Score{}} {};
     void loop();
@@ -28,7 +27,6 @@ public:
 private:
     void handlePaddles();
     BallView ball;
-    char serialValue;
     Paddle thisPaddle;
     PaddleView otherPaddle;
     Score score;
