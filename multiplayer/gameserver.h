@@ -18,10 +18,10 @@ class GameServer : private Server
 {
 public:
     GameServer(std::string serverPort)
-        : ball{Ball{100, 200}},
+        : Server{serverPort},
+          ball{Ball{100, 200}},
           lPaddle{PaddleVirtual{}},
-          rPaddle{PaddleVirtual{}},
-          Server{serverPort}
+          rPaddle{PaddleVirtual{}}
     {
         std::thread gameServerThread{&GameServer::loop, this};
 
@@ -41,8 +41,7 @@ private:
 #endif
 
 // Current state
-// WIP - sort all warnings in the build
-// automatically find the arduino fd
+// WIP - segfault with the keyboard
 // add documentation and README update
 // test again with arduino - make sure it still works
 // try test again over localhost

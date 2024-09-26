@@ -1,4 +1,4 @@
-#include "../multiplayer/gameserver.h"
+#include "./multiplayer/gameserver.h"
 
 int main()
 {

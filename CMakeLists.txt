@@ -13,34 +13,34 @@ endif()
 add_executable(
     pong 
     main.cpp 
-    pong.cpp 
-    gamearea.cpp 
-    score.cpp 
-    ../controller/keyboard.cpp 
-    ../controller/serialRead.cpp
-    ../controller/arduino.cpp
-    ../controller/controller.cpp
-    ../multiplayer/communication.cpp
-    ../multiplayer/client.cpp
-    ../assets/ball.cpp
-    ../assets/paddle.cpp
-    ../assets/ballview.cpp
-    ../assets/paddleview.cpp
+    ./pong/pong.cpp 
+    ./pong/gamearea.cpp 
+    ./pong/score.cpp 
+    ./controller/keyboard.cpp 
+    ./controller/serialRead.cpp
+    ./controller/arduino.cpp
+    ./controller/controller.cpp
+    ./multiplayer/communication.cpp
+    ./multiplayer/client.cpp
+    ./assets/ball.cpp
+    ./assets/paddle.cpp
+    ./assets/ballview.cpp
+    ./assets/paddleview.cpp
 )
 
 add_executable(
     pong-server
     serverCreate.cpp
-    gamearea.cpp 
-    score.cpp
-    ../multiplayer/gameserver.cpp
-    ../multiplayer/server.cpp
-    ../multiplayer/communication.cpp
-    ../assets/ball.cpp
-    ../assets/paddlevirtual.cpp
-    ../assets/paddleview.cpp
-    ../assets/paddle.cpp
-    ../assets/ballview.cpp
+    ./pong/gamearea.cpp 
+    ./pong/score.cpp
+    ./multiplayer/gameserver.cpp
+    ./multiplayer/server.cpp
+    ./multiplayer/communication.cpp
+    ./assets/ball.cpp
+    ./assets/paddlevirtual.cpp
+    ./assets/paddleview.cpp
+    ./assets/paddle.cpp
+    ./assets/ballview.cpp
 )
 
 find_path(RL_INCLUDE_DIR NAMES raylib.h PATHS /opt/homebrew/opt/raylib/include)

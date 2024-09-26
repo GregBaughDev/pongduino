@@ -1,17 +1,12 @@
-#include "pong.h"
-#include "../controller/serialRead.h"
+#include "./pong/pong.h"
+#include "./controller/serialRead.h"
 #include <thread>
 #include <iostream>
 #include <memory>
 
 int main(int argc, char *argv[])
 {
-    int i;
-    for (i = 0; i < argc; i++)
-    {
-        std::cout << "ARGV[" << i << "] - " << argv[i] << "\n";
-    }
-    if (argc != 3)
+    if (argc < 3)
     {
         std::cerr << "Pong - Provide: \n"
                   << "**controller** Keyboard (k) or Arduino (a)\n"
@@ -42,7 +37,8 @@ int main(int argc, char *argv[])
 
     if (controller == 'a')
     {
-        SerialRead serialRead("/dev/cu.usbmodem142201");
+        std::string arduinoPort = argv[3];
+        SerialRead serialRead(arduinoPort);
         std::thread input(&SerialRead::stream, serialRead, serialValue.get());
 
         input.detach();

@@ -12,9 +12,9 @@ public:
     Pong(std::string serverPort,
          PlayerPaddle playerPos,
          Paddle playerPaddle)
-        : gameArea{GameArea{playerPaddle}},
-          playerPos{playerPos},
-          gameData{std::make_unique<PongComm>(PongComm{0, 0, 0, 0})},
+        : playerPos{playerPos},
+          gameArea{GameArea{playerPaddle}},
+          gameData{std::make_unique<PongComm>(PongComm{0, 0, 0, 0, 0, 0})},
           paddleData{std::make_unique<PaddleComm>(PaddleComm{playerPos, 0, 0})},
           client{Client{serverPort, gameData.get(), paddleData.get()}}
     {
