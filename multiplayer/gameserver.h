@@ -41,8 +41,6 @@ private:
 #endif
 
 // Current state
-// WIP - segfault with the keyboard
-// add documentation and README update
-// test again with arduino - make sure it still works
+// WIP - add documentation and README update
 // try test again over localhost
 // score class
