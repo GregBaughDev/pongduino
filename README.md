@@ -32,6 +32,8 @@ This is multiplayer Pong that can be controlled with an Arduino. I wanted to lea
 ## Arduino setup
 
 The arduino is setup so both players use it, sort of old school arcade vibes. Set it up as per the image. Flash the `controller/arduino/controller.ino` code onto your Arduino. I'm using an Uno and I usually use the Arduino IDE to flash code to it.
+The diagram below shows the wiring. The ports are a little different though so check the `controller.ino` code for which inputs to use.
+![](schematic.png)
 
 ## Thoughts
 
