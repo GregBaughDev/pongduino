@@ -1,6 +1,5 @@
 #ifndef GAME_AREA_H
 #define GAME_AREA_H
-#include "score.h"
 #include "../assets/paddle.h"
 #include "../assets/paddleview.h"
 #include "../assets/ballview.h"
@@ -15,8 +14,7 @@ public:
     GameArea(Paddle playerPaddle)
         : ball{BallView{}},
           thisPaddle(playerPaddle),
-          otherPaddle{PaddleView{}},
-          score{Score{}} {};
+          otherPaddle{PaddleView{}} {};
     void loop();
     static const int height = 600;
     static const int width = 800;
@@ -29,7 +27,6 @@ private:
     BallView ball;
     Paddle thisPaddle;
     PaddleView otherPaddle;
-    Score score;
 };
 
 #endif

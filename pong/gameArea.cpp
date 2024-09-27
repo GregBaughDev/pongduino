@@ -7,7 +7,6 @@ void GameArea::loop()
     DrawLine(GameArea::width / 2, 0, GameArea::width / 2.0, GameArea::height, RAYWHITE);
     handlePaddles();
     ball.loop();
-    score.displayScore(); // TODO - Come back to this and send the score
 }
 
 void GameArea::handlePaddles()

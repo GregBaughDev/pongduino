@@ -15,7 +15,6 @@ add_executable(
     main.cpp 
     ./pong/pong.cpp 
     ./pong/gamearea.cpp 
-    ./pong/score.cpp 
     ./controller/keyboard.cpp 
     ./controller/serialRead.cpp
     ./controller/arduino.cpp
@@ -32,7 +31,6 @@ add_executable(
     pong-server
     serverCreate.cpp
     ./pong/gamearea.cpp 
-    ./pong/score.cpp
     ./multiplayer/gameserver.cpp
     ./multiplayer/server.cpp
     ./multiplayer/communication.cpp

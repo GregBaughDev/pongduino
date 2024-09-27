@@ -39,8 +39,3 @@ private:
 };
 
 #endif
-
-// Current state
-// WIP - add documentation and README update
-// try test again over localhost
-// score class
